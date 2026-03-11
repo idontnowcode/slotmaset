@@ -1,5 +1,4 @@
-﻿const ITEM_HEIGHT = 110;
-const REPEAT_COUNT = 7;
+﻿const REPEAT_COUNT = 7;
 
 const objects = [
   "나무",
@@ -54,6 +53,12 @@ let isSpinning = false;
 let latestResult = null;
 let audioContext = null;
 
+function getItemHeight() {
+  const rootValue = window.getComputedStyle(document.documentElement).getPropertyValue("--item-height").trim();
+  const parsed = Number.parseFloat(rootValue);
+  return Number.isFinite(parsed) ? parsed : 110;
+}
+
 function repeatItems(list) {
   return Array.from({ length: REPEAT_COUNT }, () => list).flat();
 }
@@ -70,8 +75,9 @@ function buildSlot(track, list) {
 }
 
 function setTrackPosition(track, visibleIndex) {
+  const itemHeight = getItemHeight();
   track.style.transition = "none";
-  track.style.transform = `translateY(-${visibleIndex * ITEM_HEIGHT}px)`;
+  track.style.transform = `translateY(-${visibleIndex * itemHeight}px)`;
 }
 
 function renderInitialSlots() {
@@ -230,9 +236,10 @@ function pullLever() {
 
 function animateSlot(slot, targetIndex, duration, stopDelay = 0) {
   return new Promise((resolve) => {
+    const itemHeight = getItemHeight();
     const baseCycles = 4 + Math.floor(Math.random() * 2);
     const finalIndex = targetIndex + slot.list.length * baseCycles;
-    const distance = finalIndex * ITEM_HEIGHT;
+    const distance = finalIndex * itemHeight;
     const track = slot.track;
     const windowEl = track.parentElement;
 
@@ -249,7 +256,7 @@ function animateSlot(slot, targetIndex, duration, stopDelay = 0) {
 
     window.setTimeout(() => {
       track.style.transition = "none";
-      track.style.transform = `translateY(-${targetIndex * ITEM_HEIGHT}px)`;
+      track.style.transform = `translateY(-${targetIndex * itemHeight}px)`;
       windowEl.classList.add("is-winning");
       playReelStopSound(stopDelay);
       resolve();
@@ -317,6 +324,14 @@ function replayResult() {
 }
 
 renderInitialSlots();
+window.addEventListener("resize", () => {
+  if (!isSpinning) {
+    renderInitialSlots();
+    if (latestResult) {
+      updateResult(latestResult);
+    }
+  }
+});
 spinButton.addEventListener("click", spin);
 surpriseButton.addEventListener("click", replayResult);
 if (leverButton) {
