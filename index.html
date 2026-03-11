@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>속성 슬롯머신</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Pretendard:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <p class="eyebrow">Arcade Style Concept Generator</p>
+      <h1>진짜 슬롯머신 기계처럼 보이는 아이디어 슬롯</h1>
+      <p class="description">
+        두 개의 개체와 한 개의 속성을 뽑아 새로운 이름과 설정을 만들어내는 웹 기반 슬롯머신입니다.
+        도박이 아니라 세계관, 캐릭터, 몬스터 발상용으로 쓰기 좋게 구성했습니다.
+      </p>
+    </section>
+
+    <section class="machine-shell">
+      <div class="machine-marquee">
+        <span class="bulb"></span>
+        <div class="marquee-text">
+          <p class="machine-label">Fantasy Slot Cabinet</p>
+          <h2>IMAGINATION JACKPOT</h2>
+        </div>
+        <span class="bulb"></span>
+      </div>
+
+      <div class="machine-panel">
+        <div class="machine-top">
+          <div class="display-badge">
+            <span class="display-dot"></span>
+            <span id="statusPill">READY</span>
+          </div>
+          <div class="coin-panel">
+            <span>CREDIT</span>
+            <strong>999</strong>
+          </div>
+        </div>
+
+        <div class="cabinet-stage">
+          <div class="side-bolts left">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="machine-face">
+            <div class="reel-header">
+              <span>REEL 1</span>
+              <span>REEL 2</span>
+              <span>REEL 3</span>
+            </div>
+
+            <div class="slot-machine" aria-label="개체와 속성을 뽑는 슬롯머신">
+              <div class="slot-column">
+                <span class="slot-title">개체 1</span>
+                <div class="slot-window">
+                  <div class="slot-track" id="slot1Track"></div>
+                </div>
+              </div>
+              <div class="slot-column">
+                <span class="slot-title">개체 2</span>
+                <div class="slot-window">
+                  <div class="slot-track" id="slot2Track"></div>
+                </div>
+              </div>
+              <div class="slot-column attribute-column">
+                <span class="slot-title">속성</span>
+                <div class="slot-window">
+                  <div class="slot-track" id="slot3Track"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lever-box" aria-hidden="true">
+            <div class="lever-head"></div>
+            <div class="lever-shaft"></div>
+            <div class="lever-base"></div>
+          </div>
+
+          <div class="side-bolts right">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="control-deck">
+          <div class="controls">
+            <button class="spin-button" id="spinButton" type="button">SPIN</button>
+            <button class="ghost-button" id="surpriseButton" type="button">결과 다시 보기</button>
+          </div>
+
+          <section class="result-card" aria-live="polite">
+            <p class="result-label">PAYOUT DISPLAY</p>
+            <h3 id="resultHeadline">속성을 장전하고 슬롯을 돌려보세요.</h3>
+            <p id="resultSentence">예시: 물의 폭포 개구리</p>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
