@@ -151,6 +151,11 @@ body::before {
   background: linear-gradient(180deg, #b4151c 0%, var(--cabinet-red) 18%, #791015 54%, var(--cabinet-red-deep) 100%);
   border: 8px solid #5a0b0e;
   box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.15), inset 0 -14px 28px rgba(0, 0, 0, 0.35), var(--shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.machine-panel.is-spinning {
+  animation: cabinetPulse 0.24s ease-in-out 6;
 }
 
 .machine-panel::before {
@@ -329,6 +334,27 @@ body::before {
   position: relative;
   width: 84px;
   min-height: 280px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.lever-box:hover {
+  transform: none;
+}
+
+.lever-box:focus-visible {
+  outline: 2px solid #ffe58d;
+  outline-offset: 4px;
+}
+
+.lever-head,
+.lever-shaft {
+  transition: transform 0.22s ease;
+  transform-origin: top center;
 }
 
 .lever-head {
@@ -352,7 +378,6 @@ body::before {
   background: linear-gradient(180deg, #eef2fb 0%, #8b92a0 35%, #525865 100%);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
   transform: rotate(10deg);
-  transform-origin: top center;
 }
 
 .lever-base {
@@ -364,6 +389,14 @@ body::before {
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #f8fbff 0%, #cfd4de 26%, #7c8391 50%, #484f5c 100%);
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.45), 0 4px 8px rgba(0,0,0,0.22);
+}
+
+.lever-box.is-pulled .lever-shaft {
+  transform: rotate(24deg) translateY(18px);
+}
+
+.lever-box.is-pulled .lever-head {
+  transform: translate(20px, 30px);
 }
 
 .control-deck {
@@ -450,6 +483,19 @@ button:disabled {
   }
   50% {
     box-shadow: inset 0 0 0 3px rgba(255, 250, 214, 0.6), inset 0 18px 22px rgba(255,255,255,0.42), inset 0 -18px 20px rgba(78, 49, 13, 0.18), 0 0 28px rgba(255, 212, 90, 0.65);
+  }
+}
+
+@keyframes cabinetPulse {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
   }
 }
 
