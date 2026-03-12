@@ -56,6 +56,9 @@
               <div class="gacha-ball"></div>
             </div>
           </div>
+          <div class="ball-catcher">
+            <div class="ball-in-catcher" id="catcher1"></div>
+          </div>
           <button class="machine-spin-btn" id="spinBtn1" type="button">뽑기</button>
         </div>
 
@@ -84,6 +87,9 @@
               <div class="tray-hole"></div>
               <div class="gacha-ball"></div>
             </div>
+          </div>
+          <div class="ball-catcher">
+            <div class="ball-in-catcher" id="catcher2"></div>
           </div>
           <button class="machine-spin-btn" id="spinBtn2" type="button">뽑기</button>
         </div>
@@ -114,6 +120,9 @@
               <div class="gacha-ball"></div>
             </div>
           </div>
+          <div class="ball-catcher">
+            <div class="ball-in-catcher" id="catcher3"></div>
+          </div>
           <button class="machine-spin-btn" id="spinBtn3" type="button">뽑기</button>
         </div>
 
@@ -121,13 +130,14 @@
 
       <div class="control-deck">
         <div class="controls">
+          <button class="open-button" id="openButton" type="button" disabled>Open</button>
           <button class="ghost-button" id="replayButton" type="button">결과 다시 보기</button>
         </div>
 
         <section class="result-card" aria-live="polite">
           <p class="result-label">RESULT</p>
           <h3 id="resultHeadline">각 기계의 뽑기 버튼을 눌러보세요.</h3>
-          <p id="resultSentence">세 기계를 모두 뽑으면 조합 결과가 나타납니다.</p>
+          <p id="resultSentence">세 기계를 모두 뽑은 후 Open 버튼을 누르세요.</p>
         </section>
       </div>
     </section>
