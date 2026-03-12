@@ -112,10 +112,11 @@ function startSpinLoop() {
 }
 
 function animateCrank(machineEl) {
-  machineEl.classList.remove("is-cranking");
-  void machineEl.offsetWidth;
-  machineEl.classList.add("is-cranking");
-  setTimeout(() => machineEl.classList.remove("is-cranking"), 620);
+  const knob = machineEl.querySelector(".knob-dial");
+  if (!knob) return;
+  knob.style.animation = "none";
+  void knob.offsetWidth;
+  knob.style.animation = "knobSpin 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97)";
 }
 
 function animateGacha(displayEl, domeEl, list, targetItem, totalDuration) {
