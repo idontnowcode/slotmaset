@@ -211,10 +211,11 @@ async function openCapsules() {
   statusPill.textContent = "OPENING";
 
   for (const state of machineState) {
-    const catcher = state.catcherBallEl.parentElement;
+    // parentElement is now .tray-slot (inside .wood-tray)
+    const slot = state.catcherBallEl.parentElement;
 
-    // 받침 발광 + 구슬 사라짐
-    catcher.classList.add("is-opening");
+    // 슬롯 발광 + 구슬 사라짐
+    slot.classList.add("is-opening");
     await sleep(300);
     state.catcherBallEl.classList.remove("is-landed");
     await sleep(120);
@@ -229,7 +230,7 @@ async function openCapsules() {
     await sleep(750);
     state.domeEl.classList.remove("is-opening-reveal");
     state.displayEl.classList.remove("is-revealing");
-    catcher.classList.remove("is-opening");
+    slot.classList.remove("is-opening");
 
     await sleep(280);
   }

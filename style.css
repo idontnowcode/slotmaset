@@ -1,9 +1,8 @@
 :root {
-  --bg-top: #0f0a1a;
-  --bg-bottom: #1a0a2e;
+  --bg-top: #0d0a18;
+  --bg-bottom: #170a26;
   --ink: #fff8ec;
   --muted: rgba(255, 245, 225, 0.76);
-  --shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -16,8 +15,8 @@ body {
   font-family: "Pretendard", "Segoe UI", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 20% 10%, rgba(120, 60, 220, 0.18), transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.12), transparent 28%),
+    radial-gradient(circle at 20% 10%, rgba(100, 50, 180, 0.15), transparent 32%),
+    radial-gradient(circle at 80% 80%, rgba(40, 130, 180, 0.1), transparent 28%),
     linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
 }
 
@@ -26,11 +25,11 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-  background-size: 24px 24px;
+    linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 28px 28px;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 .app {
@@ -112,35 +111,77 @@ body::before {
   letter-spacing: 0.1em;
 }
 
-/* ── Gacha Arena ── */
+/* ═══════════════════════════════════
+   TABLE SCENE
+═══════════════════════════════════ */
+.table-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: fit-content;
+  max-width: 100%;
+  /* Wood surface */
+  background:
+    repeating-linear-gradient(
+      92deg,
+      transparent 0px, transparent 22px,
+      rgba(80, 42, 8, 0.07) 22px, rgba(80, 42, 8, 0.07) 23px
+    ),
+    repeating-linear-gradient(
+      89deg,
+      transparent 0px, transparent 55px,
+      rgba(60, 28, 6, 0.05) 55px, rgba(60, 28, 6, 0.05) 57px
+    ),
+    linear-gradient(180deg, #c8893a 0%, #ae7228 55%, #945e1a 100%);
+  border-radius: 14px 14px 0 0;
+  padding: 28px 20px 0;
+  box-shadow:
+    inset 0 5px 0 rgba(255, 225, 160, 0.22),
+    inset 5px 0 0 rgba(0, 0, 0, 0.08),
+    inset -5px 0 0 rgba(0, 0, 0, 0.08),
+    0 -6px 24px rgba(0, 0, 0, 0.25);
+}
+
+.table-edge {
+  height: 22px;
+  margin: 0 -0px;
+  background: linear-gradient(180deg, #6e3c10 0%, #4e2808 100%);
+  border-radius: 0 0 6px 6px;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 200, 120, 0.12),
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Gacha Arena (machine row) ── */
 .gacha-arena {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 28px;
-  flex-wrap: wrap;
+  gap: 20px;
+  flex-wrap: nowrap;
+  overflow: visible;
 }
 
-/* ── Machine column wrapper (button lives here, outside the filter) ── */
+/* ── Machine column wrapper ── */
 .machine-col {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 190px;
+  overflow: visible;
 }
 
-/* ── Single Gacha Machine ── */
+/* ══════════════════════════════════
+   REALISTIC GACHA MACHINE
+══════════════════════════════════ */
 .gacha-machine {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.45));
-  transition: filter 0.3s ease;
-}
-
-.gacha-machine.is-cranking .knob-dial {
-  animation: knobSpin 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  overflow: visible;
+  /* No filter here — allows ball to travel past boundary */
 }
 
 /* Machine badge label */
@@ -148,44 +189,76 @@ body::before {
   margin-bottom: 10px;
   padding: 5px 18px;
   border-radius: 999px;
-  background: var(--mc, #888);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--mc, #888) 80%, white 20%) 0%,
+      var(--mc, #888) 100%);
   color: #fff;
   font-weight: 700;
   font-size: 0.85rem;
   letter-spacing: 0.06em;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-  box-shadow: 0 3px 10px var(--mc-glow, rgba(0,0,0,0.3));
+  text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.28),
+    inset 0 -2px 0 rgba(0,0,0,0.18),
+    0 4px 12px rgba(0,0,0,0.4);
+  border: 1.5px solid rgba(0,0,0,0.2);
 }
 
-/* ── Dome ── */
+/* ── Dome (heavy glass globe) ── */
 .gacha-dome {
   position: relative;
   width: 154px;
   height: 154px;
   border-radius: 50%;
-  background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 50%, rgba(0,0,0,0.18) 100%);
-  border: 5px solid rgba(255,255,255,0.35);
+  /* Tinted glass with depth gradient */
+  background:
+    radial-gradient(
+      ellipse at 42% 28%,
+      rgba(255, 255, 255, 0.38) 0%,
+      rgba(200, 230, 255, 0.14) 28%,
+      rgba(120, 180, 220, 0.06) 50%,
+      rgba(0, 0, 0, 0.18) 75%,
+      rgba(0, 0, 0, 0.32) 100%
+    );
+  border: 7px solid rgba(200, 210, 230, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    inset 0 8px 20px rgba(255,255,255,0.15),
-    inset 0 -8px 16px rgba(0,0,0,0.25),
-    0 6px 20px rgba(0,0,0,0.35);
   overflow: hidden;
   z-index: 1;
+  box-shadow:
+    inset 0 14px 30px rgba(255, 255, 255, 0.2),
+    inset 0 -12px 24px rgba(0, 0, 0, 0.3),
+    inset 6px 0 14px rgba(0, 0, 0, 0.08),
+    inset -6px 0 14px rgba(0, 0, 0, 0.1),
+    0 10px 32px rgba(0, 0, 0, 0.55),
+    0 3px 6px rgba(0, 0, 0, 0.4);
 }
 
+/* Primary gloss (large bright reflection at upper-left) */
 .dome-gloss {
   position: absolute;
-  top: 14px;
-  left: 24px;
-  width: 52px;
-  height: 28px;
+  top: 12px;
+  left: 20px;
+  width: 60px;
+  height: 32px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.28);
+  background: rgba(255, 255, 255, 0.32);
   pointer-events: none;
-  filter: blur(4px);
+  filter: blur(5px);
+  transform: rotate(-15deg);
+}
+
+/* Secondary smaller gloss */
+.dome-gloss-2 {
+  top: 36px;
+  left: 16px;
+  width: 20px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.55);
+  filter: blur(2px);
+  transform: rotate(-10deg);
 }
 
 .gacha-item {
@@ -193,10 +266,11 @@ body::before {
   font-weight: 400;
   font-size: clamp(1.6rem, 2.8vw, 2.1rem);
   color: #fff;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.6), 0 0 20px var(--mc, transparent);
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.7),
+    0 0 28px var(--mc, transparent);
   z-index: 1;
   text-align: center;
-  transition: transform 0.1s ease;
   user-select: none;
 }
 
@@ -222,10 +296,11 @@ body::before {
 }
 
 @keyframes domeOpenReveal {
-  0%   { transform: scale(1);    border-color: rgba(255,255,255,0.35); }
-  35%  { transform: scale(1.07); border-color: var(--mc, rgba(255,255,255,0.6)); box-shadow: inset 0 8px 20px rgba(255,255,255,0.2), 0 0 50px var(--mc-glow), 0 0 80px var(--mc-glow); }
+  0%   { transform: scale(1);    border-color: rgba(200,210,230,0.55); }
+  35%  { transform: scale(1.07); border-color: var(--mc, rgba(255,255,255,0.6));
+         box-shadow: inset 0 14px 30px rgba(255,255,255,0.25), 0 0 60px var(--mc-glow), 0 0 100px var(--mc-glow); }
   70%  { transform: scale(0.97); }
-  100% { transform: scale(1);    border-color: rgba(255,255,255,0.35); }
+  100% { transform: scale(1);    border-color: rgba(200,210,230,0.55); }
 }
 
 @keyframes textReveal {
@@ -237,56 +312,121 @@ body::before {
 @keyframes domeGlow {
   0%, 100% {
     box-shadow:
-      inset 0 8px 20px rgba(255,255,255,0.15),
-      inset 0 -8px 16px rgba(0,0,0,0.25),
-      0 6px 20px rgba(0,0,0,0.35);
-    border-color: rgba(255,255,255,0.35);
+      inset 0 14px 30px rgba(255,255,255,0.2),
+      inset 0 -12px 24px rgba(0,0,0,0.3),
+      0 10px 32px rgba(0,0,0,0.55);
+    border-color: rgba(200,210,230,0.55);
   }
   50% {
     box-shadow:
-      inset 0 8px 20px rgba(255,255,255,0.2),
-      inset 0 -8px 16px rgba(0,0,0,0.15),
-      0 0 40px var(--mc-glow, rgba(255,255,255,0.4)),
-      0 0 70px var(--mc-glow, rgba(255,255,255,0.2));
+      inset 0 14px 30px rgba(255,255,255,0.28),
+      inset 0 -12px 24px rgba(0,0,0,0.2),
+      0 0 50px var(--mc-glow, rgba(255,255,255,0.4)),
+      0 0 90px var(--mc-glow, rgba(255,255,255,0.2));
     border-color: var(--mc, rgba(255,255,255,0.6));
   }
 }
 
-/* ── Neck ── */
-.gacha-neck {
-  width: 48px;
-  height: 18px;
-  background: linear-gradient(180deg, #4a5060 0%, #2a2f3a 100%);
-  border-left: 3px solid #5a6070;
-  border-right: 3px solid #5a6070;
+/* ── Dome mounting ring ── */
+.dome-ring {
+  width: 72px;
+  height: 14px;
+  background: linear-gradient(180deg,
+    #c8ccd8 0%,
+    #8890a4 35%,
+    #5a6070 65%,
+    #3a4050 100%);
+  border-radius: 4px 4px 0 0;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.4),
+    inset 0 -2px 4px rgba(0,0,0,0.4),
+    0 2px 6px rgba(0,0,0,0.4);
   position: relative;
-  z-index: 0;
+  z-index: 2;
+  margin-top: -4px;
 }
 
-.gacha-neck::before {
+.dome-ring::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.08) 100%);
+  left: 50%;
+  transform: translateX(-50%);
+  top: 2px;
+  width: 60%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.25);
 }
 
-/* ── Body ── */
+/* ── Neck ── */
+.gacha-neck {
+  width: 44px;
+  height: 20px;
+  background: linear-gradient(90deg,
+    #4a4e5c 0%,
+    #8890a4 18%,
+    #c4c8d4 32%,
+    #d8dce8 50%,
+    #b0b8c8 68%,
+    #6a7080 82%,
+    #3a3e4a 100%);
+  border-left: 2px solid #2a2e3a;
+  border-right: 2px solid #2a2e3a;
+  position: relative;
+  z-index: 0;
+  box-shadow:
+    0 3px 8px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* ── Body (painted metal) ── */
 .gacha-body {
   position: relative;
   width: 100%;
-  border-radius: 16px 16px 8px 8px;
-  background: linear-gradient(180deg, var(--mc, #555) 0%, var(--mc-deep, #333) 100%);
-  border: 4px solid rgba(0,0,0,0.25);
+  border-radius: 14px 14px 8px 8px;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--mc, #555) 55%, #c0c8d0 45%) 0%,
+    color-mix(in srgb, var(--mc, #555) 78%, #000 22%) 40%,
+    var(--mc-deep, #333) 100%);
+  border: 3px solid rgba(0, 0, 0, 0.3);
   box-shadow:
-    inset 0 3px 0 rgba(255,255,255,0.25),
-    inset 0 -6px 12px rgba(0,0,0,0.3),
-    0 4px 12px rgba(0,0,0,0.25);
+    inset 0 5px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -5px 12px rgba(0, 0, 0, 0.35),
+    inset 4px 0 8px rgba(255, 255, 255, 0.08),
+    inset -4px 0 8px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.35);
   overflow: visible;
   min-height: 130px;
 }
 
+/* Screws at corners */
+.body-screw {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #d0d4de 0%, #8890a4 50%, #404858 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.4),
+    inset 0 -1px 2px rgba(0,0,0,0.5),
+    0 1px 3px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+.body-screw::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 100%);
+}
+.body-screw-tl { top: 8px;  left: 8px;  }
+.body-screw-tr { top: 8px;  right: 8px; }
+.body-screw-bl { bottom: 8px; left: 8px; }
+.body-screw-br { bottom: 8px; right: 8px; }
+
 .body-inner {
-  padding: 14px 14px 10px;
+  padding: 16px 14px 10px;
 }
 
 .coin-row {
@@ -300,9 +440,12 @@ body::before {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #1a1e28 0%, #0d1018 100%);
-  border: 3px solid rgba(0,0,0,0.35);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12);
+  background: radial-gradient(circle at 38% 32%, #2a2e38 0%, #12151e 100%);
+  border: 3px solid rgba(0, 0, 0, 0.4);
+  box-shadow:
+    inset 0 3px 6px rgba(0,0,0,0.7),
+    inset 0 -1px 2px rgba(255,255,255,0.06),
+    0 1px 0 rgba(255,255,255,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -310,61 +453,92 @@ body::before {
 }
 
 .coin-slit {
-  width: 14px;
+  width: 13px;
   height: 3px;
-  background: #3a4050;
+  background: #2a3040;
   border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
 }
 
 .body-sublabel {
   margin: 0;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 0.6rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .decor-strip {
-  height: 6px;
+  height: 5px;
   border-radius: 3px;
-  background: rgba(0,0,0,0.2);
-  border: 1px solid rgba(0,0,0,0.3);
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1px 3px rgba(0,0,0,0.4),
+    inset 0 -1px 0 rgba(255,255,255,0.08);
+  margin-bottom: 2px;
 }
 
-/* ── Knob ── */
+/* ── Knob (machined metal dial) ── */
 .knob-assy {
   display: flex;
   justify-content: center;
-  padding-top: 12px;
+  align-items: flex-end;
+  padding-top: 10px;
   padding-bottom: 2px;
+  position: relative;
+}
+
+/* Raised platform the knob sits on */
+.knob-base {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 18px;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.3) 100%);
+  border: 2px solid rgba(0,0,0,0.25);
+  border-bottom: 0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .knob-dial {
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: radial-gradient(circle at 38% 32%, #d8dce8 0%, #8890a4 38%, #3e4460 72%, #1c2030 100%);
-  border: 4px solid rgba(0,0,0,0.45);
+  background: radial-gradient(circle at 38% 32%,
+    #e0e4f0 0%,
+    #a0a8bc 30%,
+    #5a6078 60%,
+    #2a3040 85%,
+    #1a2030 100%);
+  border: 4px solid rgba(0, 0, 0, 0.5);
   box-shadow:
-    inset 0 3px 6px rgba(255,255,255,0.3),
-    inset 0 -4px 8px rgba(0,0,0,0.5),
-    0 5px 16px rgba(0,0,0,0.55),
-    0 2px 4px rgba(0,0,0,0.3);
+    inset 0 4px 8px rgba(255, 255, 255, 0.35),
+    inset 0 -5px 10px rgba(0, 0, 0, 0.6),
+    inset 3px 0 6px rgba(255, 255, 255, 0.1),
+    0 6px 18px rgba(0, 0, 0, 0.65),
+    0 2px 4px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding-top: 5px;
+  z-index: 1;
 }
 
 .knob-mark {
   width: 5px;
-  height: 14px;
+  height: 15px;
   border-radius: 3px;
   background: var(--mc, #aabbcc);
-  box-shadow: 0 0 6px var(--mc-glow, rgba(255,255,255,0.5)), 0 1px 2px rgba(0,0,0,0.4);
+  box-shadow:
+    0 0 8px var(--mc-glow, rgba(255,255,255,0.5)),
+    0 1px 3px rgba(0,0,0,0.5);
 }
 
 @keyframes knobSpin {
@@ -375,16 +549,19 @@ body::before {
   100% { transform: rotate(360deg); }
 }
 
-/* ── Tray ── */
+/* ── Tray (ball output) ── */
 .gacha-tray {
   position: relative;
-  width: 80%;
+  width: 76%;
   height: 18px;
-  background: linear-gradient(180deg, #2a2f3a 0%, #1a1e28 100%);
-  border-radius: 0 0 12px 12px;
-  border: 3px solid rgba(0,0,0,0.3);
+  background: linear-gradient(180deg, #2a2e3a 0%, #181c24 100%);
+  border-radius: 0 0 14px 14px;
+  border: 3px solid rgba(0, 0, 0, 0.35);
   border-top: 0;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  box-shadow:
+    inset 0 3px 6px rgba(0,0,0,0.5),
+    0 4px 10px rgba(0,0,0,0.4),
+    0 1px 0 rgba(255,255,255,0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -392,14 +569,16 @@ body::before {
 }
 
 .tray-hole {
-  width: 36px;
-  height: 8px;
-  background: #0d1018;
-  border-radius: 4px;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+  width: 34px;
+  height: 9px;
+  background: #080c14;
+  border-radius: 5px;
+  box-shadow:
+    inset 0 2px 5px rgba(0,0,0,0.9),
+    0 1px 0 rgba(255,255,255,0.06);
 }
 
-/* ── Gacha Ball ── */
+/* ── Gacha Ball (animation) ── */
 .gacha-ball {
   position: absolute;
   width: 22px;
@@ -409,43 +588,122 @@ body::before {
   top: -2px;
   transform: translateX(-50%) scale(0);
   opacity: 0;
-  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.75) 0%, var(--mc, #aaa) 45%, var(--mc-deep, #555) 100%);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.45), inset 0 1px 3px rgba(255,255,255,0.45);
+  background: radial-gradient(circle at 35% 30%,
+    rgba(255, 255, 255, 0.8) 0%,
+    var(--mc, #aaa) 42%,
+    var(--mc-deep, #555) 100%);
+  box-shadow:
+    0 4px 14px rgba(0,0,0,0.5),
+    inset 0 1px 4px rgba(255,255,255,0.5),
+    0 0 10px var(--mc-glow, transparent);
   pointer-events: none;
-  z-index: 10;
+  z-index: 20;
 }
 
 @keyframes ballPop {
   0%   { transform: translateX(-50%) translateY(0)    scale(0);    opacity: 0; }
-  10%  { transform: translateX(-50%) translateY(-4px) scale(1.2);  opacity: 1; }
-  28%  { transform: translateX(-50%) translateY(12px) scale(1);    opacity: 1; }
-  45%  { transform: translateX(-50%) translateY(6px)  scale(1.04); opacity: 1; }
-  60%  { transform: translateX(-50%) translateY(14px) scale(0.97); opacity: 1; }
-  78%  { transform: translateX(-50%) translateY(28px) scale(0.93); opacity: 0.7; }
-  100% { transform: translateX(-50%) translateY(44px) scale(0.85); opacity: 0; }
+  8%   { transform: translateX(-50%) translateY(-6px) scale(1.25); opacity: 1; }
+  22%  { transform: translateX(-50%) translateY(10px) scale(1);    opacity: 1; }
+  40%  { transform: translateX(-50%) translateY(22px) scale(1.03); opacity: 1; }
+  58%  { transform: translateX(-50%) translateY(38px) scale(0.97); opacity: 0.95; }
+  75%  { transform: translateX(-50%) translateY(55px) scale(0.92); opacity: 0.6; }
+  90%  { transform: translateX(-50%) translateY(68px) scale(0.87); opacity: 0.2; }
+  100% { transform: translateX(-50%) translateY(75px) scale(0.83); opacity: 0; }
 }
 
-/* ── Ball Catcher ── */
-.ball-catcher {
-  width: 72%;
-  height: 28px;
-  background: linear-gradient(180deg, #1e2230 0%, #141820 100%);
-  border-radius: 0 0 18px 18px;
-  border: 3px solid rgba(0,0,0,0.35);
-  border-top: 0;
-  box-shadow: inset 0 3px 8px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.3);
+/* ═══════════════════════════════════
+   WOOD TRAY (shared ball receiver)
+═══════════════════════════════════ */
+.wood-tray {
+  display: flex;
+  align-items: center;
+  margin: 10px 20px 0;
+  padding: 10px 16px 12px;
+  /* Walnut wood */
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px, transparent 18px,
+      rgba(50, 22, 4, 0.09) 18px, rgba(50, 22, 4, 0.09) 20px
+    ),
+    repeating-linear-gradient(
+      88deg,
+      transparent 0px, transparent 42px,
+      rgba(70, 32, 6, 0.06) 42px, rgba(70, 32, 6, 0.06) 44px
+    ),
+    linear-gradient(180deg,
+      #b07828 0%,
+      #8a5c18 45%,
+      #6e4810 100%);
+  border-radius: 10px;
+  box-shadow:
+    inset 0 5px 0 rgba(200, 160, 80, 0.25),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.28),
+    inset 4px 0 0 rgba(200, 150, 70, 0.12),
+    inset -4px 0 0 rgba(0, 0, 0, 0.15),
+    0 6px 20px rgba(0, 0, 0, 0.55),
+    0 2px 4px rgba(0, 0, 0, 0.4);
+  border: 3px solid rgba(40, 20, 4, 0.5);
+}
+
+/* Each slot on the tray — routed circular recess */
+.tray-slot {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 44px;
   position: relative;
 }
 
-.ball-in-catcher {
-  width: 20px;
-  height: 20px;
+/* The routed circular hole in the wood */
+.tray-slot::before {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.75) 0%, var(--mc, #aaa) 45%, var(--mc-deep, #555) 100%);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.4), 0 0 10px var(--mc-glow, transparent);
+  background: radial-gradient(circle at 40% 35%,
+    #3a1e06 0%,
+    #22100.2 50%,
+    #100800 100%);
+  background: linear-gradient(160deg, #3a1e08 0%, #18090.2 100%);
+  background: #1c0e04;
+  box-shadow:
+    inset 0 4px 10px rgba(0, 0, 0, 0.85),
+    inset 0 1px 3px rgba(0, 0, 0, 0.7),
+    0 1px 0 rgba(200, 140, 60, 0.2);
+}
+
+.tray-slot + .tray-slot::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(0,0,0,0.2) 30%,
+    rgba(0,0,0,0.2) 70%,
+    transparent 100%);
+}
+
+/* ── Ball in tray slot ── */
+.ball-in-catcher {
+  position: relative;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%,
+    rgba(255, 255, 255, 0.8) 0%,
+    var(--mc, #aaa) 42%,
+    var(--mc-deep, #555) 100%);
+  box-shadow:
+    0 3px 10px rgba(0,0,0,0.6),
+    inset 0 1px 3px rgba(255,255,255,0.45),
+    0 0 14px var(--mc-glow, transparent);
   opacity: 0;
   transform: scale(0);
   transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -456,35 +714,58 @@ body::before {
   transform: scale(1);
 }
 
-@keyframes catcherPulse {
-  0%   { box-shadow: inset 0 3px 8px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.3); }
-  50%  { box-shadow: inset 0 3px 8px rgba(0,0,0,0.3), 0 0 24px var(--mc-glow, rgba(255,255,255,0.3)), 0 0 48px var(--mc-glow, transparent); }
-  100% { box-shadow: inset 0 3px 8px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.3); }
+/* Tray slot glow on open */
+@keyframes slotGlow {
+  0%   { box-shadow: inset 0 4px 10px rgba(0,0,0,0.85); }
+  50%  { box-shadow: inset 0 4px 10px rgba(0,0,0,0.6),
+          0 0 28px var(--mc-glow, rgba(255,255,255,0.4)),
+          0 0 56px var(--mc-glow, transparent); }
+  100% { box-shadow: inset 0 4px 10px rgba(0,0,0,0.85); }
 }
 
-.ball-catcher.is-opening {
-  animation: catcherPulse 0.5s ease-out;
+.tray-slot.is-opening::before {
+  animation: slotGlow 0.5s ease-out;
 }
 
 /* ── Machine spin button ── */
 .machine-spin-btn {
-  margin-top: 12px;
-  width: 100%;
+  margin-top: 10px;
+  width: 90%;
   padding: 9px 8px;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 100%);
+  /* Metal plate style */
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.18) 0%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(0,0,0,0.1) 100%);
   color: var(--mc, #fff);
-  border: 2px solid var(--mc, rgba(255,255,255,0.3));
-  border-radius: 999px;
-  box-shadow: 0 0 10px var(--mc-glow, rgba(255,255,255,0.15)), inset 0 1px 0 rgba(255,255,255,0.15);
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: rgba(255,255,255,0.2);
+  border-radius: 8px;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.18),
+    inset 0 -2px 0 rgba(0,0,0,0.25),
+    0 4px 12px rgba(0,0,0,0.4),
+    0 0 14px var(--mc-glow, rgba(255,255,255,0.1));
   transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
 }
 
 .machine-spin-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 18px var(--mc-glow, rgba(255,255,255,0.25)), inset 0 1px 0 rgba(255,255,255,0.2);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.22),
+    inset 0 -2px 0 rgba(0,0,0,0.25),
+    0 6px 18px rgba(0,0,0,0.45),
+    0 0 22px var(--mc-glow, rgba(255,255,255,0.2));
+}
+
+.machine-spin-btn:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.3),
+    0 2px 6px rgba(0,0,0,0.3);
 }
 
 .machine-spin-btn:disabled {
@@ -531,16 +812,6 @@ button:disabled {
   transform: none;
 }
 
-.spin-button {
-  min-width: 150px;
-  font-size: 1.1rem;
-  letter-spacing: 0.06em;
-  background: linear-gradient(180deg, #e879f9 0%, #a21caf 50%, #701a75 100%);
-  color: #fff;
-  border: 3px solid #86198f;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.3), 0 8px 22px rgba(168, 28, 175, 0.45);
-}
-
 .open-button {
   flex: 1;
   font-size: 1.1rem;
@@ -550,12 +821,16 @@ button:disabled {
   background: linear-gradient(180deg, #fbbf24 0%, #d97706 50%, #b45309 100%);
   color: #fff;
   border: 3px solid #92400e;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.28), 0 8px 24px rgba(217,119,6,0.45);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.28),
+    0 8px 24px rgba(217,119,6,0.45);
   text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
 .open-button:not(:disabled):hover {
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.28), 0 10px 32px rgba(217,119,6,0.6);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.28),
+    0 10px 32px rgba(217,119,6,0.6);
 }
 
 .open-button:disabled {
@@ -605,13 +880,6 @@ button:disabled {
   font-size: 0.92rem;
 }
 
-/* ── Keyframes ── */
-@keyframes machinePulse {
-  0%, 100% { transform: translateY(0); }
-  30%       { transform: translateY(-3px); }
-  70%       { transform: translateY(2px); }
-}
-
 /* ── Responsive ── */
 @media (max-width: 700px) {
   .app {
@@ -620,11 +888,16 @@ button:disabled {
   }
 
   .hero {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+  }
+
+  .table-scene {
+    padding: 18px 10px 0;
+    border-radius: 10px 10px 0 0;
   }
 
   .gacha-arena {
-    gap: 10px;
+    gap: 8px;
     flex-wrap: nowrap;
   }
 
@@ -639,49 +912,63 @@ button:disabled {
   }
 
   .gacha-dome {
-    width: 124px;
-    height: 124px;
-    border-width: 4px;
+    width: 112px;
+    height: 112px;
+    border-width: 5px;
   }
 
   .dome-gloss {
-    width: 40px;
-    height: 22px;
+    width: 42px;
+    height: 24px;
     top: 10px;
-    left: 18px;
+    left: 14px;
+  }
+
+  .dome-gloss-2 {
+    width: 14px;
+    height: 8px;
+    top: 28px;
+    left: 12px;
   }
 
   .gacha-item {
-    font-size: clamp(1.2rem, 5.5vw, 1.65rem);
+    font-size: clamp(1.1rem, 5vw, 1.5rem);
+  }
+
+  .dome-ring {
+    width: 54px;
+    height: 11px;
   }
 
   .gacha-neck {
-    width: 38px;
+    width: 34px;
     height: 14px;
   }
 
   .gacha-body {
-    min-height: 96px;
-    border-radius: 12px 12px 6px 6px;
+    min-height: 90px;
+    border-radius: 10px 10px 6px 6px;
   }
 
   .body-inner {
-    padding: 10px 10px 6px;
+    padding: 12px 10px 6px;
   }
 
   .coin-slot {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
   }
 
   .body-sublabel {
-    font-size: 0.52rem;
+    font-size: 0.5rem;
   }
 
   .knob-dial {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     padding-top: 4px;
+    border-width: 3px;
   }
 
   .knob-mark {
@@ -689,25 +976,64 @@ button:disabled {
     height: 11px;
   }
 
+  .knob-base {
+    width: 48px;
+    height: 14px;
+  }
+
   .knob-assy {
-    padding-top: 8px;
+    padding-top: 6px;
   }
 
   .gacha-tray {
     height: 14px;
   }
 
-  .ball-catcher {
-    height: 22px;
+  .gacha-ball {
+    width: 18px;
+    height: 18px;
+  }
+
+  .body-screw {
+    width: 7px;
+    height: 7px;
+  }
+  .body-screw-tl { top: 6px;  left: 6px; }
+  .body-screw-tr { top: 6px;  right: 6px; }
+  .body-screw-bl { bottom: 6px; left: 6px; }
+  .body-screw-br { bottom: 6px; right: 6px; }
+
+  .wood-tray {
+    margin: 7px 10px 0;
+    padding: 7px 10px 9px;
+  }
+
+  .tray-slot {
+    height: 36px;
+  }
+
+  .tray-slot::before {
+    width: 32px;
+    height: 32px;
   }
 
   .ball-in-catcher {
-    width: 16px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .table-edge {
     height: 16px;
   }
 
+  .machine-spin-btn {
+    margin-top: 8px;
+    padding: 7px 6px;
+    font-size: 0.73rem;
+  }
+
   .control-deck {
-    width: calc(100% - 0px);
+    width: 100%;
     padding: 14px;
   }
 
@@ -720,45 +1046,36 @@ button:disabled {
     min-width: 0;
     padding: 14px 18px;
   }
-
-  .machine-spin-btn {
-    margin-top: 8px;
-    padding: 7px 6px;
-    font-size: 0.75rem;
-  }
 }
 
 @media (max-width: 500px) {
-  .gacha-arena {
-    gap: 10px;
-  }
-
-  .machine-col {
-    width: 128px;
-  }
-
   .gacha-dome {
-    width: 106px;
-    height: 106px;
+    width: 96px;
+    height: 96px;
   }
 
   .gacha-item {
-    font-size: clamp(1.05rem, 4.8vw, 1.4rem);
+    font-size: clamp(1rem, 4.5vw, 1.3rem);
+  }
+
+  .dome-ring {
+    width: 46px;
+    height: 10px;
   }
 
   .gacha-neck {
-    width: 32px;
+    width: 28px;
     height: 12px;
   }
 
   .machine-badge {
-    font-size: 0.72rem;
-    padding: 4px 14px;
+    font-size: 0.7rem;
+    padding: 4px 12px;
   }
 
   .knob-dial {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-width: 3px;
     padding-top: 3px;
   }
@@ -768,57 +1085,69 @@ button:disabled {
     height: 9px;
   }
 
+  .knob-base {
+    width: 40px;
+    height: 12px;
+  }
+
   .knob-assy {
-    padding-top: 6px;
+    padding-top: 5px;
   }
 
   .machine-spin-btn {
     margin-top: 6px;
     padding: 6px 4px;
-    font-size: 0.7rem;
+    font-size: 0.67rem;
   }
 
   .gacha-ball {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
 
-  .ball-catcher {
-    height: 20px;
+  .tray-slot {
+    height: 32px;
+  }
+
+  .tray-slot::before {
+    width: 28px;
+    height: 28px;
   }
 
   .ball-in-catcher {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
   }
 }
 
 @media (max-width: 400px) {
-  .machine-col {
-    width: 108px;
-  }
-
   .gacha-dome {
-    width: 90px;
-    height: 90px;
-    border-width: 3px;
+    width: 82px;
+    height: 82px;
+    border-width: 4px;
   }
 
   .gacha-item {
-    font-size: clamp(0.9rem, 4.2vw, 1.2rem);
+    font-size: clamp(0.88rem, 4vw, 1.1rem);
+  }
+
+  .dome-ring {
+    width: 38px;
+    height: 8px;
   }
 
   .gacha-neck {
-    width: 26px;
+    width: 24px;
+    height: 10px;
   }
 
   .gacha-body {
-    min-height: 90px;
+    min-height: 82px;
   }
 
   .knob-dial {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-width: 3px;
     padding-top: 3px;
   }
@@ -828,28 +1157,38 @@ button:disabled {
     height: 8px;
   }
 
+  .knob-base {
+    width: 34px;
+    height: 10px;
+  }
+
   .knob-assy {
-    padding-top: 5px;
+    padding-top: 4px;
     padding-bottom: 0;
   }
 
   .machine-spin-btn {
     margin-top: 5px;
-    padding: 5px 4px;
-    font-size: 0.65rem;
+    padding: 5px 3px;
+    font-size: 0.62rem;
   }
 
   .gacha-ball {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 
-  .ball-catcher {
-    height: 18px;
+  .tray-slot {
+    height: 28px;
+  }
+
+  .tray-slot::before {
+    width: 24px;
+    height: 24px;
   }
 
   .ball-in-catcher {
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
   }
 }
