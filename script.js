@@ -12,32 +12,36 @@ const resultHeadline = document.getElementById("resultHeadline");
 const resultSentence  = document.getElementById("resultSentence");
 const statusPill      = document.getElementById("statusPill");
 const replayButton    = document.getElementById("replayButton");
+const openButton      = document.getElementById("openButton");
 
 const machineState = [
   {
     list: objects,
-    displayEl: document.getElementById("gacha1"),
-    domeEl:    document.getElementById("dome1"),
-    machineEl: document.getElementById("machine1"),
-    btnEl:     document.getElementById("spinBtn1"),
+    displayEl:    document.getElementById("gacha1"),
+    domeEl:       document.getElementById("dome1"),
+    machineEl:    document.getElementById("machine1"),
+    btnEl:        document.getElementById("spinBtn1"),
+    catcherBallEl: document.getElementById("catcher1"),
     result: null,
     spinning: false,
   },
   {
     list: objects,
-    displayEl: document.getElementById("gacha2"),
-    domeEl:    document.getElementById("dome2"),
-    machineEl: document.getElementById("machine2"),
-    btnEl:     document.getElementById("spinBtn2"),
+    displayEl:    document.getElementById("gacha2"),
+    domeEl:       document.getElementById("dome2"),
+    machineEl:    document.getElementById("machine2"),
+    btnEl:        document.getElementById("spinBtn2"),
+    catcherBallEl: document.getElementById("catcher2"),
     result: null,
     spinning: false,
   },
   {
     list: attributes,
-    displayEl: document.getElementById("gacha3"),
-    domeEl:    document.getElementById("dome3"),
-    machineEl: document.getElementById("machine3"),
-    btnEl:     document.getElementById("spinBtn3"),
+    displayEl:    document.getElementById("gacha3"),
+    domeEl:       document.getElementById("dome3"),
+    machineEl:    document.getElementById("machine3"),
+    btnEl:        document.getElementById("spinBtn3"),
+    catcherBallEl: document.getElementById("catcher3"),
     result: null,
     spinning: false,
   },
@@ -97,16 +101,16 @@ function startSpinLoop() {
   const ctx = ensureAudioContext();
   if (!ctx) return { stop() {} };
 
-  const bandPass   = ctx.createBiquadFilter();
-  const loopGain   = ctx.createGain();
+  const bandPass    = ctx.createBiquadFilter();
+  const loopGain    = ctx.createGain();
   const noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 0.18, ctx.sampleRate);
-  const channel    = noiseBuffer.getChannelData(0);
+  const channel     = noiseBuffer.getChannelData(0);
 
   for (let i = 0; i < channel.length; i++) channel[i] = (Math.random() * 2 - 1) * 0.3;
 
-  bandPass.type          = "bandpass";
+  bandPass.type           = "bandpass";
   bandPass.frequency.value = 680;
-  bandPass.Q.value       = 0.8;
+  bandPass.Q.value        = 0.8;
   loopGain.gain.setValueAtTime(0.0001, ctx.currentTime);
   loopGain.gain.exponentialRampToValueAtTime(0.025, ctx.currentTime + 0.05);
 
@@ -146,27 +150,28 @@ function animateBall(machineEl) {
   ball.style.animation = "ballPop 1.5s ease-out forwards";
 }
 
-function updateCombinedResult() {
-  const allDone = machineState.every(s => s.result !== null);
-  if (!allDone) return;
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-  const obj1 = machineState[0].result;
-  const obj2 = machineState[1].result;
-  const attr = machineState[2].result;
+function updateStatusPill() {
+  const anySpinning = machineState.some(s => s.spinning);
+  statusPill.textContent = anySpinning ? "SPINNING" : "READY";
+}
 
-  latestResult = { object1: obj1, object2: obj2, attribute: attr };
-  resultHeadline.textContent = `${attr}의 ${obj1} ${obj2}`;
-  resultSentence.textContent  = `${attr} 속성을 머금은 ${obj1}와 ${obj2}의 조합입니다. 캐릭터 설정, 몬스터 이름, 세계관 아이디어의 시작점으로 써보세요.`;
-  playJackpotSound();
+function checkAllBallsReady() {
+  if (!machineState.every(s => s.result !== null)) return;
+  openButton.disabled = false;
+  statusPill.textContent = "OPEN !";
 }
 
 function spinMachine(state) {
-  if (state.spinning) return;
+  // 1회 제한: 이미 결과 있거나 뽑는 중이면 무시
+  if (state.spinning || state.result !== null) return;
   state.spinning = true;
-  state.result = null;  // 재뽑기 시 이전 결과 초기화
   state.btnEl.disabled = true;
 
-  // Pick result — 개체 기계(index 0,1)는 서로 다른 값 보장
+  // 개체 기계(0,1)는 서로 다른 값 보장
   let target = state.list[Math.floor(Math.random() * state.list.length)];
   if (state === machineState[1] && machineState[0].result !== null) {
     while (target === machineState[0].result && state.list.length > 1) {
@@ -174,44 +179,70 @@ function spinMachine(state) {
     }
   }
 
-  // Clear dome
+  // 돔 비우기
   state.displayEl.textContent = "";
   state.domeEl.classList.remove("is-landed");
 
-  // Knob animation + sound
+  // 노브 회전 + 사운드
   animateCrank(state.machineEl);
   playCrankSound();
-  updateStatusPill();
+  statusPill.textContent = "SPINNING";
 
-  // Spin loop sound — stop after ball fades
   const spinLoop = startSpinLoop();
   setTimeout(() => spinLoop.stop(), 1400);
 
-  // Ball appears shortly after knob starts
+  // 구슬 등장 (노브 이후 350ms)
   setTimeout(() => animateBall(state.machineEl), 350);
 
-  // Reveal result in dome after ball animation completes
+  // 구슬 받침 안착 (결과는 저장하되 돔에는 미표시)
   setTimeout(() => {
     state.result = target;
-    state.displayEl.textContent = target;
-    state.domeEl.classList.add("is-landed");
+    state.catcherBallEl.classList.add("is-landed");
     playItemStopSound();
     state.spinning = false;
-    state.btnEl.disabled = false;
+    // 버튼 재활성화 없음 — 1회 제한
     updateStatusPill();
-    updateCombinedResult();
+    checkAllBallsReady();
   }, 1850);
 }
 
-function updateStatusPill() {
-  const anySpinning = machineState.some(s => s.spinning);
-  if (anySpinning) {
-    statusPill.textContent = "SPINNING";
-  } else if (machineState.every(s => s.result !== null)) {
-    statusPill.textContent = "COMPLETE";
-  } else {
-    statusPill.textContent = "READY";
+async function openCapsules() {
+  openButton.disabled = true;
+  statusPill.textContent = "OPENING";
+
+  for (const state of machineState) {
+    const catcher = state.catcherBallEl.parentElement;
+
+    // 받침 발광 + 구슬 사라짐
+    catcher.classList.add("is-opening");
+    await sleep(300);
+    state.catcherBallEl.classList.remove("is-landed");
+    await sleep(120);
+
+    // 돔 열림 애니메이션 + 텍스트 출현
+    state.domeEl.classList.add("is-opening-reveal");
+    state.displayEl.textContent = state.result;
+    state.displayEl.classList.add("is-revealing");
+    state.domeEl.classList.add("is-landed");
+    playItemStopSound();
+
+    await sleep(750);
+    state.domeEl.classList.remove("is-opening-reveal");
+    state.displayEl.classList.remove("is-revealing");
+    catcher.classList.remove("is-opening");
+
+    await sleep(280);
   }
+
+  // 조합 결과 표시
+  const obj1 = machineState[0].result;
+  const obj2 = machineState[1].result;
+  const attr = machineState[2].result;
+  latestResult = { object1: obj1, object2: obj2, attribute: attr };
+  resultHeadline.textContent = `${attr}의 ${obj1} ${obj2}`;
+  resultSentence.textContent  = `${attr} 속성을 머금은 ${obj1}와 ${obj2}의 조합입니다. 캐릭터 설정, 몬스터 이름, 세계관 아이디어의 시작점으로 써보세요.`;
+  playJackpotSound();
+  statusPill.textContent = "COMPLETE";
 }
 
 function replayResult() {
@@ -225,4 +256,5 @@ machineState.forEach(state => {
   state.btnEl.addEventListener("click", () => spinMachine(state));
 });
 
+openButton.addEventListener("click", openCapsules);
 replayButton.addEventListener("click", replayResult);
