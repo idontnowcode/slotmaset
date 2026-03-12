@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>속성 슬롯머신</title>
+  <title>속성 뽑기 기계</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Pretendard:wght@400;500;700&display=swap" rel="stylesheet">
@@ -12,93 +12,112 @@
 <body>
   <main class="app">
     <section class="hero">
-      <p class="eyebrow">Arcade Style Concept Generator</p>
-      <h1>진짜 슬롯머신 기계처럼 보이는 아이디어 슬롯</h1>
+      <p class="eyebrow">Capsule Toy Concept Generator</p>
+      <h1>속성 뽑기 기계</h1>
       <p class="description">
-        두 개의 개체와 한 개의 속성을 뽑아 새로운 이름과 설정을 만들어내는 웹 기반 슬롯머신입니다.
-        도박이 아니라 세계관, 캐릭터, 몬스터 발상용으로 쓰기 좋게 구성했습니다.
+        세 대의 뽑기 기계에서 개체 둘과 속성 하나를 뽑아 새로운 이름과 설정을 만들어냅니다.
+        세계관, 캐릭터, 몬스터 발상용으로 활용해보세요.
       </p>
     </section>
 
-    <section class="machine-shell">
-      <div class="machine-marquee">
-        <span class="bulb"></span>
-        <div class="marquee-text">
-          <p class="machine-label">Fantasy Slot Cabinet</p>
-          <h2>IMAGINATION JACKPOT</h2>
+    <section class="arena-wrap">
+      <div class="status-row">
+        <div class="display-badge">
+          <span class="display-dot"></span>
+          <span id="statusPill">READY</span>
         </div>
-        <span class="bulb"></span>
       </div>
 
-      <div class="machine-panel" id="machinePanel">
-        <div class="machine-top">
-          <div class="display-badge">
-            <span class="display-dot"></span>
-            <span id="statusPill">READY</span>
-          </div>
-          <div class="coin-panel">
-            <span>CREDIT</span>
-            <strong>999</strong>
-          </div>
-        </div>
+      <div class="gacha-arena" aria-label="속성을 뽑는 뽑기 기계 세 대">
 
-        <div class="cabinet-stage">
-          <div class="side-bolts left">
-            <span></span><span></span><span></span>
+        <!-- Machine 1: 개체 1 -->
+        <div class="gacha-machine" id="machine1" style="--mc:#38bdf8;--mc-deep:#0369a1;--mc-glow:rgba(56,189,248,0.55)">
+          <div class="machine-badge">개체 1</div>
+          <div class="gacha-dome" id="dome1">
+            <div class="dome-gloss"></div>
+            <span class="gacha-item" id="gacha1">???</span>
           </div>
-
-          <div class="machine-face">
-            <div class="reel-header">
-              <span>REEL 1</span>
-              <span>REEL 2</span>
-              <span>REEL 3</span>
+          <div class="gacha-neck"></div>
+          <div class="gacha-body">
+            <div class="body-inner">
+              <div class="coin-row">
+                <div class="coin-slot"><div class="coin-slit"></div></div>
+                <p class="body-sublabel">OBJECT I</p>
+              </div>
+              <div class="decor-strip"></div>
             </div>
-
-            <div class="slot-machine" aria-label="개체와 속성을 뽑는 슬롯머신">
-              <div class="slot-column">
-                <span class="slot-title">개체 1</span>
-                <div class="slot-window">
-                  <div class="slot-track" id="slot1Track"></div>
-                </div>
-              </div>
-              <div class="slot-column">
-                <span class="slot-title">개체 2</span>
-                <div class="slot-window">
-                  <div class="slot-track" id="slot2Track"></div>
-                </div>
-              </div>
-              <div class="slot-column attribute-column">
-                <span class="slot-title">속성</span>
-                <div class="slot-window">
-                  <div class="slot-track" id="slot3Track"></div>
-                </div>
-              </div>
+            <div class="crank-assy">
+              <div class="crank-hub"></div>
+              <div class="crank-arm"></div>
+              <div class="crank-grip"></div>
             </div>
           </div>
-
-          <button class="lever-box" id="leverButton" type="button" aria-label="레버를 당겨 슬롯 돌리기">
-            <div class="lever-head"></div>
-            <div class="lever-shaft"></div>
-            <div class="lever-base"></div>
-          </button>
-
-          <div class="side-bolts right">
-            <span></span><span></span><span></span>
-          </div>
+          <div class="gacha-tray"><div class="tray-hole"></div></div>
         </div>
 
-        <div class="control-deck">
-          <div class="controls">
-            <button class="spin-button" id="spinButton" type="button">SPIN</button>
-            <button class="ghost-button" id="surpriseButton" type="button">결과 다시 보기</button>
+        <!-- Machine 2: 개체 2 -->
+        <div class="gacha-machine" id="machine2" style="--mc:#34d399;--mc-deep:#065f46;--mc-glow:rgba(52,211,153,0.55)">
+          <div class="machine-badge">개체 2</div>
+          <div class="gacha-dome" id="dome2">
+            <div class="dome-gloss"></div>
+            <span class="gacha-item" id="gacha2">???</span>
           </div>
-
-          <section class="result-card" aria-live="polite">
-            <p class="result-label">PAYOUT DISPLAY</p>
-            <h3 id="resultHeadline">속성을 장전하고 슬롯을 돌려보세요.</h3>
-            <p id="resultSentence">예시: 물의 폭포 개구리</p>
-          </section>
+          <div class="gacha-neck"></div>
+          <div class="gacha-body">
+            <div class="body-inner">
+              <div class="coin-row">
+                <div class="coin-slot"><div class="coin-slit"></div></div>
+                <p class="body-sublabel">OBJECT II</p>
+              </div>
+              <div class="decor-strip"></div>
+            </div>
+            <div class="crank-assy">
+              <div class="crank-hub"></div>
+              <div class="crank-arm"></div>
+              <div class="crank-grip"></div>
+            </div>
+          </div>
+          <div class="gacha-tray"><div class="tray-hole"></div></div>
         </div>
+
+        <!-- Machine 3: 속성 -->
+        <div class="gacha-machine" id="machine3" style="--mc:#f6c45c;--mc-deep:#92400e;--mc-glow:rgba(246,196,92,0.55)">
+          <div class="machine-badge">속성</div>
+          <div class="gacha-dome" id="dome3">
+            <div class="dome-gloss"></div>
+            <span class="gacha-item" id="gacha3">???</span>
+          </div>
+          <div class="gacha-neck"></div>
+          <div class="gacha-body">
+            <div class="body-inner">
+              <div class="coin-row">
+                <div class="coin-slot"><div class="coin-slit"></div></div>
+                <p class="body-sublabel">ATTRIBUTE</p>
+              </div>
+              <div class="decor-strip"></div>
+            </div>
+            <div class="crank-assy">
+              <div class="crank-hub"></div>
+              <div class="crank-arm"></div>
+              <div class="crank-grip"></div>
+            </div>
+          </div>
+          <div class="gacha-tray"><div class="tray-hole"></div></div>
+        </div>
+
+      </div>
+
+      <div class="control-deck">
+        <div class="controls">
+          <button class="spin-button" id="spinButton" type="button">뽑기!</button>
+          <button class="ghost-button" id="replayButton" type="button">결과 다시 보기</button>
+        </div>
+
+        <section class="result-card" aria-live="polite">
+          <p class="result-label">RESULT</p>
+          <h3 id="resultHeadline">기계를 돌려 속성을 뽑아보세요.</h3>
+          <p id="resultSentence">예시: 물의 폭포 개구리</p>
+        </section>
       </div>
     </section>
   </main>

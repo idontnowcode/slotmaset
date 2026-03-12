@@ -1,21 +1,9 @@
-﻿:root {
-  --bg-top: #180d06;
-  --bg-bottom: #3c0904;
-  --cabinet-red: #8f1015;
-  --cabinet-red-deep: #5b090d;
-  --gold: #f6c45c;
-  --gold-bright: #ffeb9e;
-  --gold-deep: #b06d16;
-  --metal-light: #d7dbe6;
-  --metal-mid: #8f96a6;
-  --metal-dark: #464c58;
-  --screen: #180b1c;
-  --screen-border: #5e6370;
+:root {
+  --bg-top: #0f0a1a;
+  --bg-bottom: #1a0a2e;
   --ink: #fff8ec;
   --muted: rgba(255, 245, 225, 0.76);
-  --accent: #8cffc0;
-  --shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
-  --item-height: 110px;
+  --shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -28,8 +16,8 @@ body {
   font-family: "Pretendard", "Segoe UI", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 196, 92, 0.15), transparent 24%),
-    radial-gradient(circle at 10% 20%, rgba(255, 80, 80, 0.12), transparent 20%),
+    radial-gradient(circle at 20% 10%, rgba(120, 60, 220, 0.18), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.12), transparent 28%),
     linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
 }
 
@@ -37,380 +25,373 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 24px 24px;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.4;
 }
 
 .app {
-  width: min(1180px, calc(100% - 32px));
+  width: min(1200px, calc(100% - 32px));
   margin: 0 auto;
   padding: 44px 0 72px;
 }
 
+/* ── Hero ── */
 .hero {
   text-align: center;
-  margin-bottom: 28px;
-}
-
-.eyebrow,
-.machine-label,
-.result-label,
-.slot-title,
-.reel-header span {
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  margin-bottom: 36px;
 }
 
 .eyebrow {
   margin: 0 0 10px;
-  color: var(--gold);
+  color: #c084fc;
   font-size: 0.8rem;
-}
-
-.hero h1,
-.machine-marquee h2,
-.slot-item {
-  font-family: "Black Han Sans", sans-serif;
-  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(2.1rem, 4.8vw, 3.8rem);
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
   line-height: 1.08;
+  background: linear-gradient(135deg, #fff 30%, #c084fc 70%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .description {
-  width: min(760px, 100%);
-  margin: 18px auto 0;
+  width: min(680px, 100%);
+  margin: 16px auto 0;
   color: var(--muted);
   line-height: 1.7;
+  font-size: 0.95rem;
 }
 
-.machine-shell {
-  position: relative;
-}
-
-.machine-marquee {
-  position: relative;
-  width: min(860px, calc(100% - 80px));
-  margin: 0 auto -18px;
-  padding: 22px 32px 34px;
+/* ── Arena wrapper ── */
+.arena-wrap {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  border-radius: 34px 34px 18px 18px;
-  background: linear-gradient(180deg, #d22128 0%, #7a0f14 70%, #53080b 100%);
-  border: 6px solid #651012;
-  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 18px 40px rgba(0, 0, 0, 0.35);
+  gap: 28px;
 }
 
-.machine-marquee::before {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border-radius: 24px 24px 12px 12px;
-  border: 2px solid rgba(255, 235, 158, 0.35);
-  pointer-events: none;
-}
-
-.marquee-text {
-  text-align: center;
-  flex: 1;
-}
-
-.machine-label {
-  margin: 0 0 6px;
-  color: #ffe0a6;
-  font-size: 0.72rem;
-}
-
-.machine-marquee h2 {
-  margin: 0;
-  font-size: clamp(1.7rem, 4vw, 2.9rem);
-  color: #fff8d8;
-  text-shadow: 0 0 12px rgba(255, 240, 170, 0.35), 0 3px 0 rgba(73, 15, 5, 0.8);
-}
-
-.bulb {
-  width: 26px;
-  height: 26px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fffef3 0%, #ffe991 40%, #ffb11b 68%, #c07100 100%);
-  box-shadow: 0 0 14px rgba(255, 203, 84, 0.95), 0 0 28px rgba(255, 193, 60, 0.45);
-}
-
-.machine-panel {
-  position: relative;
-  padding: 42px 28px 28px;
-  border-radius: 42px;
-  background: linear-gradient(180deg, #b4151c 0%, var(--cabinet-red) 18%, #791015 54%, var(--cabinet-red-deep) 100%);
-  border: 8px solid #5a0b0e;
-  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.15), inset 0 -14px 28px rgba(0, 0, 0, 0.35), var(--shadow);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-.machine-panel.is-spinning {
-  animation: cabinetPulse 0.24s ease-in-out 6;
-}
-
-.machine-panel::before {
-  content: "";
-  position: absolute;
-  inset: 12px;
-  border-radius: 30px;
-  border: 2px solid rgba(255, 226, 161, 0.22);
-  pointer-events: none;
-}
-
-.machine-top {
+.status-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 18px;
+  justify-content: center;
 }
 
-.display-badge,
-.coin-panel {
+.display-badge {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px;
-  min-height: 52px;
+  padding: 10px 20px;
   border-radius: 999px;
   background: linear-gradient(180deg, #20242d 0%, #10141d 100%);
-  border: 3px solid #576073;
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.14);
+  border: 2px solid #3a4050;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.1);
 }
 
 .display-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: #ffd54b;
-  box-shadow: 0 0 10px rgba(255, 213, 75, 0.75);
+  background: #a3e635;
+  box-shadow: 0 0 8px rgba(163, 230, 53, 0.8);
 }
 
-#statusPill,
-.coin-panel strong {
-  color: #b8ffc6;
+#statusPill {
+  color: #a3e635;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
 }
 
-.coin-panel {
-  color: #d2d9e6;
+/* ── Gacha Arena ── */
+.gacha-arena {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 28px;
+  flex-wrap: wrap;
 }
 
-.coin-panel strong {
-  font-size: 1.1rem;
-}
-
-.cabinet-stage {
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) 84px 48px;
-  gap: 14px;
-  align-items: center;
-}
-
-.side-bolts {
+/* ── Single Gacha Machine ── */
+.gacha-machine {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
-  min-height: 270px;
+  width: 190px;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.45));
+  transition: filter 0.3s ease;
 }
 
-.side-bolts span {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #f8fbff 0%, #cdd2db 28%, #858c99 55%, #4f5561 100%);
-  box-shadow: inset 0 2px 1px rgba(255,255,255,0.45), 0 1px 4px rgba(0,0,0,0.35);
+.gacha-machine.is-cranking .crank-arm {
+  animation: crankSpin 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 
-.machine-face {
-  padding: 18px;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #949baa 0%, #4a505d 16%, #2d333f 100%);
-  border: 6px solid #6f7684;
-  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.18), inset 0 -12px 18px rgba(0, 0, 0, 0.4);
+.gacha-machine.is-cranking .crank-grip {
+  animation: crankSpin 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 
-.reel-header {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-bottom: 12px;
+/* Machine badge label */
+.machine-badge {
+  margin-bottom: 10px;
+  padding: 5px 18px;
+  border-radius: 999px;
+  background: var(--mc, #888);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  box-shadow: 0 3px 10px var(--mc-glow, rgba(0,0,0,0.3));
 }
 
-.reel-header span {
-  display: block;
-  text-align: center;
-  color: #e2e7f2;
-  font-size: 0.75rem;
-}
-
-.slot-machine {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.slot-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.slot-title {
-  text-align: center;
-  color: #fbe9b8;
-  font-size: 0.82rem;
-}
-
-.slot-window {
+/* ── Dome ── */
+.gacha-dome {
   position: relative;
-  height: var(--item-height);
-  overflow: hidden;
-  border-radius: 20px;
-  background: linear-gradient(180deg, #fff7d7 0%, #f8ddb0 100%);
-  border: 6px solid #b8862f;
-  box-shadow: inset 0 0 0 3px rgba(255, 250, 214, 0.6), inset 0 18px 22px rgba(255,255,255,0.42), inset 0 -18px 20px rgba(78, 49, 13, 0.18), 0 8px 16px rgba(0,0,0,0.18);
-}
-
-.slot-window::before,
-.slot-window::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 24px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.slot-window::before {
-  top: 0;
-  background: linear-gradient(180deg, rgba(255, 249, 224, 0.96), rgba(255, 249, 224, 0));
-}
-
-.slot-window::after {
-  bottom: 0;
-  background: linear-gradient(0deg, rgba(235, 196, 123, 0.95), rgba(235, 196, 123, 0));
-}
-
-.slot-window.is-winning {
-  animation: glow 0.7s ease-in-out 2;
-}
-
-.slot-track {
-  transform: translateY(0);
-  will-change: transform;
-}
-
-.slot-item {
-  height: var(--item-height);
+  width: 154px;
+  height: 154px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 50%, rgba(0,0,0,0.18) 100%);
+  border: 5px solid rgba(255,255,255,0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 14px;
-  font-size: clamp(1.7rem, 3vw, 2.15rem);
-  color: #47200c;
+  box-shadow:
+    inset 0 8px 20px rgba(255,255,255,0.15),
+    inset 0 -8px 16px rgba(0,0,0,0.25),
+    0 6px 20px rgba(0,0,0,0.35);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.dome-gloss {
+  position: absolute;
+  top: 14px;
+  left: 24px;
+  width: 52px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.28);
+  pointer-events: none;
+  filter: blur(4px);
+}
+
+.gacha-item {
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6), 0 0 20px var(--mc, transparent);
+  z-index: 1;
   text-align: center;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.45);
+  transition: transform 0.1s ease;
+  user-select: none;
 }
 
-.attribute-column .slot-item {
-  color: #581830;
+.gacha-item.is-spinning {
+  animation: itemBounce 0.18s ease-in-out infinite alternate;
 }
 
-.lever-box {
+.gacha-dome.is-landed {
+  animation: domeGlow 0.75s ease-in-out 2;
+}
+
+@keyframes itemBounce {
+  from { transform: scale(0.88) rotate(-6deg); opacity: 0.7; }
+  to   { transform: scale(1.08) rotate(6deg);  opacity: 1;   }
+}
+
+@keyframes domeGlow {
+  0%, 100% {
+    box-shadow:
+      inset 0 8px 20px rgba(255,255,255,0.15),
+      inset 0 -8px 16px rgba(0,0,0,0.25),
+      0 6px 20px rgba(0,0,0,0.35);
+    border-color: rgba(255,255,255,0.35);
+  }
+  50% {
+    box-shadow:
+      inset 0 8px 20px rgba(255,255,255,0.2),
+      inset 0 -8px 16px rgba(0,0,0,0.15),
+      0 0 40px var(--mc-glow, rgba(255,255,255,0.4)),
+      0 0 70px var(--mc-glow, rgba(255,255,255,0.2));
+    border-color: var(--mc, rgba(255,255,255,0.6));
+  }
+}
+
+/* ── Neck ── */
+.gacha-neck {
+  width: 48px;
+  height: 18px;
+  background: linear-gradient(180deg, #4a5060 0%, #2a2f3a 100%);
+  border-left: 3px solid #5a6070;
+  border-right: 3px solid #5a6070;
   position: relative;
-  width: 84px;
-  min-height: 280px;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  transform: none;
+  z-index: 0;
 }
 
-.lever-box:hover {
-  transform: none;
+.gacha-neck::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.08) 100%);
 }
 
-.lever-box:focus-visible {
-  outline: 2px solid #ffe58d;
-  outline-offset: 4px;
+/* ── Body ── */
+.gacha-body {
+  position: relative;
+  width: 100%;
+  border-radius: 16px 16px 8px 8px;
+  background: linear-gradient(180deg, var(--mc, #555) 0%, var(--mc-deep, #333) 100%);
+  border: 4px solid rgba(0,0,0,0.25);
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.25),
+    inset 0 -6px 12px rgba(0,0,0,0.3),
+    0 4px 12px rgba(0,0,0,0.25);
+  overflow: visible;
+  min-height: 120px;
 }
 
-.lever-head,
-.lever-shaft {
-  transition: transform 0.22s ease;
+.body-inner {
+  padding: 14px 14px 12px;
+}
+
+.coin-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.coin-slot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #1a1e28 0%, #0d1018 100%);
+  border: 3px solid rgba(0,0,0,0.35);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.coin-slit {
+  width: 14px;
+  height: 3px;
+  background: #3a4050;
+  border-radius: 2px;
+}
+
+.body-sublabel {
+  margin: 0;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.decor-strip {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(0,0,0,0.3);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* ── Crank ── */
+.crank-assy {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 28px;
+}
+
+.crank-hub {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f0f4ff 0%, #9aa0b0 38%, #4e5461 70%, #2e333d 100%);
+  box-shadow: inset 0 2px 1px rgba(255,255,255,0.4), 0 2px 6px rgba(0,0,0,0.35);
+  z-index: 1;
+}
+
+.crank-arm {
+  width: 8px;
+  height: 38px;
+  background: linear-gradient(90deg, #c8ccd8 0%, #7a8090 45%, #5a6070 100%);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
   transform-origin: top center;
 }
 
-.lever-head {
-  position: absolute;
-  top: 4px;
-  left: 20px;
-  width: 40px;
-  height: 40px;
+.crank-grip {
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff4f4 0%, #ff8a8a 28%, #d41d26 62%, #7d0e15 100%);
-  box-shadow: 0 0 14px rgba(255, 95, 95, 0.35), inset 0 2px 1px rgba(255,255,255,0.35);
+  background: radial-gradient(circle at 35% 35%, #fff4e0 0%, var(--mc, #aaa) 45%, var(--mc-deep, #555) 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.4);
+  transform-origin: top center;
 }
 
-.lever-shaft {
-  position: absolute;
-  top: 34px;
-  left: 36px;
-  width: 10px;
-  height: 170px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #eef2fb 0%, #8b92a0 35%, #525865 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
-  transform: rotate(10deg);
+@keyframes crankSpin {
+  0%   { transform: rotate(0deg); }
+  30%  { transform: rotate(180deg); }
+  60%  { transform: rotate(320deg); }
+  80%  { transform: rotate(380deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.lever-base {
-  position: absolute;
-  bottom: 30px;
-  left: 12px;
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #f8fbff 0%, #cfd4de 26%, #7c8391 50%, #484f5c 100%);
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.45), 0 4px 8px rgba(0,0,0,0.22);
+/* ── Tray ── */
+.gacha-tray {
+  width: 80%;
+  height: 18px;
+  background: linear-gradient(180deg, #2a2f3a 0%, #1a1e28 100%);
+  border-radius: 0 0 12px 12px;
+  border: 3px solid rgba(0,0,0,0.3);
+  border-top: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.lever-box.is-pulled .lever-shaft {
-  transform: rotate(24deg) translateY(18px);
+.tray-hole {
+  width: 36px;
+  height: 8px;
+  background: #0d1018;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
 }
 
-.lever-box.is-pulled .lever-head {
-  transform: translate(20px, 30px);
-}
-
+/* ── Control Deck ── */
 .control-deck {
-  margin-top: 24px;
-  padding: 18px;
+  width: min(660px, 100%);
+  padding: 20px;
   border-radius: 24px;
-  background: linear-gradient(180deg, rgba(25, 10, 11, 0.32) 0%, rgba(0,0,0,0.24) 100%);
-  border: 2px solid rgba(255, 223, 163, 0.16);
+  background: linear-gradient(180deg, rgba(25,10,40,0.6) 0%, rgba(10,5,20,0.7) 100%);
+  border: 2px solid rgba(192, 132, 252, 0.2);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.08);
 }
 
 .controls {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  margin-bottom: 16px;
 }
 
 button {
@@ -418,7 +399,7 @@ button {
   border: 0;
   cursor: pointer;
   border-radius: 999px;
-  padding: 15px 26px;
+  padding: 15px 28px;
   font: inherit;
   font-weight: 700;
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
@@ -430,217 +411,149 @@ button:hover {
 
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.65;
+  opacity: 0.55;
   transform: none;
 }
 
 .spin-button {
   min-width: 150px;
-  background: linear-gradient(180deg, #ffe58d 0%, #f6c45c 42%, #ca7f13 100%);
-  color: #432100;
-  border: 3px solid #8f5a10;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.55), 0 10px 22px rgba(0,0,0,0.28);
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  background: linear-gradient(180deg, #e879f9 0%, #a21caf 50%, #701a75 100%);
+  color: #fff;
+  border: 3px solid #86198f;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.3), 0 8px 22px rgba(168, 28, 175, 0.45);
 }
 
 .ghost-button {
-  background: linear-gradient(180deg, #475062 0%, #272d39 100%);
-  color: #eef3ff;
-  border: 3px solid #6b7280;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.18);
+  background: linear-gradient(180deg, #2a2f3a 0%, #1a1e28 100%);
+  color: #c4cad6;
+  border: 2px solid #3a4050;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
+/* ── Result Card ── */
 .result-card {
-  margin-top: 18px;
-  padding: 20px 22px;
-  border-radius: 20px;
-  background: linear-gradient(180deg, #131721 0%, #090c13 100%);
-  border: 4px solid #5a6475;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.12);
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #0f0d1a 0%, #08060f 100%);
+  border: 3px solid #2a2040;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.08);
 }
 
 .result-label {
   margin: 0 0 8px;
-  color: #98ffa2;
-  font-size: 0.78rem;
+  color: #c084fc;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .result-card h3 {
   margin: 0;
   font-size: clamp(1.35rem, 3vw, 1.95rem);
-  color: #e7ffbe;
+  color: #f0e6ff;
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: 400;
 }
 
 .result-card p:last-child {
   margin: 10px 0 0;
-  color: #d4dde9;
+  color: #a8b4c8;
   line-height: 1.6;
+  font-size: 0.92rem;
 }
 
-@keyframes glow {
-  0%,
-  100% {
-    box-shadow: inset 0 0 0 3px rgba(255, 250, 214, 0.6), inset 0 18px 22px rgba(255,255,255,0.42), inset 0 -18px 20px rgba(78, 49, 13, 0.18), 0 8px 16px rgba(0,0,0,0.18);
-  }
-  50% {
-    box-shadow: inset 0 0 0 3px rgba(255, 250, 214, 0.6), inset 0 18px 22px rgba(255,255,255,0.42), inset 0 -18px 20px rgba(78, 49, 13, 0.18), 0 0 28px rgba(255, 212, 90, 0.65);
-  }
+/* ── Keyframes ── */
+@keyframes machinePulse {
+  0%, 100% { transform: translateY(0); }
+  30%       { transform: translateY(-3px); }
+  70%       { transform: translateY(2px); }
 }
 
-@keyframes cabinetPulse {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-2px);
-  }
-  75% {
-    transform: translateX(2px);
-  }
-}
-
-@media (max-width: 980px) {
-  .cabinet-stage {
-    grid-template-columns: 28px minmax(0, 1fr) 64px 28px;
-  }
-
-  .machine-marquee {
-    width: min(100%, calc(100% - 20px));
-  }
-}
-
-@media (max-width: 820px) {
-  :root {
-    --item-height: 88px;
-  }
-
+/* ── Responsive ── */
+@media (max-width: 700px) {
   .app {
-    width: min(100% - 18px, 720px);
-    padding: 20px 0 36px;
+    width: calc(100% - 20px);
+    padding: 24px 0 40px;
   }
 
   .hero {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
-  .hero h1 {
-    font-size: clamp(1.7rem, 8vw, 2.4rem);
+  .gacha-arena {
+    gap: 16px;
   }
 
-  .description {
-    font-size: 0.92rem;
-    line-height: 1.55;
+  .gacha-machine {
+    width: 152px;
   }
 
-  .machine-marquee {
-    width: calc(100% - 8px);
-    margin-bottom: -12px;
-    padding: 16px 16px 24px;
+  .gacha-dome {
+    width: 124px;
+    height: 124px;
     border-width: 4px;
-    border-radius: 26px 26px 14px 14px;
   }
 
-  .machine-marquee::before {
-    inset: 7px;
-    border-radius: 18px 18px 9px 9px;
+  .dome-gloss {
+    width: 40px;
+    height: 22px;
+    top: 10px;
+    left: 18px;
   }
 
-  .bulb {
-    width: 18px;
-    height: 18px;
+  .gacha-item {
+    font-size: clamp(1.2rem, 5.5vw, 1.65rem);
   }
 
-  .machine-panel {
-    padding: 28px 12px 14px;
-    border-radius: 26px;
-    border-width: 6px;
+  .gacha-neck {
+    width: 38px;
+    height: 14px;
   }
 
-  .machine-panel::before {
-    inset: 8px;
-    border-radius: 18px;
+  .gacha-body {
+    min-height: 96px;
+    border-radius: 12px 12px 6px 6px;
   }
 
-  .machine-top {
-    gap: 10px;
-    margin-bottom: 12px;
+  .body-inner {
+    padding: 10px 10px 8px;
   }
 
-  .display-badge,
-  .coin-panel {
-    min-height: 46px;
-    padding: 8px 12px;
-    border-width: 2px;
+  .coin-slot {
+    width: 26px;
+    height: 26px;
   }
 
-  .coin-panel {
-    justify-content: space-between;
+  .body-sublabel {
+    font-size: 0.52rem;
   }
 
-  .cabinet-stage {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 10px;
+  .crank-assy {
+    right: -24px;
   }
 
-  .side-bolts,
-  .lever-box {
-    display: none;
+  .crank-arm {
+    height: 28px;
   }
 
-  .machine-face {
-    padding: 12px 8px 10px;
-    border-width: 4px;
-    border-radius: 18px;
+  .crank-grip {
+    width: 13px;
+    height: 13px;
   }
 
-  .reel-header,
-  .slot-machine {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .reel-header span {
-    padding: 0;
-    border-bottom: 0;
-    font-size: 0.58rem;
-    letter-spacing: 0.1em;
-  }
-
-  .slot-column {
-    gap: 4px;
-  }
-
-  .slot-title {
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-  }
-
-  .slot-window {
-    border-width: 4px;
-    border-radius: 14px;
-  }
-
-  .slot-item {
-    padding: 0 6px;
-    font-size: clamp(1rem, 4.8vw, 1.35rem);
-    line-height: 1.15;
-    word-break: keep-all;
-  }
-
-  .slot-window::before,
-  .slot-window::after {
-    height: 18px;
+  .gacha-tray {
+    height: 14px;
   }
 
   .control-deck {
-    margin-top: 14px;
-    padding: 12px;
-    border-radius: 18px;
+    width: calc(100% - 0px);
+    padding: 14px;
   }
 
   .controls {
     flex-direction: column;
-    gap: 8px;
   }
 
   .spin-button,
@@ -649,293 +562,76 @@ button:disabled {
     min-width: 0;
     padding: 14px 18px;
   }
+}
 
-  .result-card {
-    margin-top: 12px;
-    padding: 16px;
-    border-width: 3px;
-    border-radius: 16px;
+@media (max-width: 500px) {
+  .gacha-arena {
+    gap: 10px;
   }
 
-  .result-card h3 {
-    font-size: clamp(1.05rem, 5vw, 1.35rem);
+  .gacha-machine {
+    width: 128px;
   }
 
-  .result-card p:last-child {
-    font-size: 0.88rem;
-    line-height: 1.45;
+  .gacha-dome {
+    width: 106px;
+    height: 106px;
+  }
+
+  .gacha-item {
+    font-size: clamp(1.05rem, 4.8vw, 1.4rem);
+  }
+
+  .gacha-neck {
+    width: 32px;
+    height: 12px;
+  }
+
+  .machine-badge {
+    font-size: 0.72rem;
+    padding: 4px 14px;
+  }
+
+  .crank-assy {
+    right: -20px;
+  }
+
+  .crank-arm {
+    width: 6px;
+    height: 22px;
+  }
+
+  .crank-hub {
+    width: 16px;
+    height: 16px;
+  }
+
+  .crank-grip {
+    width: 12px;
+    height: 12px;
   }
 }
 
-@media (max-width: 480px) {
-  :root {
-    --item-height: 76px;
+@media (max-width: 400px) {
+  .gacha-machine {
+    width: 108px;
   }
 
-  .app {
-    width: calc(100% - 12px);
-    padding: 16px 0 28px;
-  }
-
-  .eyebrow {
-    font-size: 0.68rem;
-  }
-
-  .machine-marquee {
-    padding: 14px 12px 20px;
-  }
-
-  .machine-label {
-    font-size: 0.58rem;
-  }
-
-  .machine-marquee h2 {
-    font-size: 1.35rem;
-  }
-
-  .reel-header,
-  .slot-machine {
-    gap: 4px;
-  }
-
-  .slot-window {
-    border-radius: 12px;
-  }
-
-  .slot-item {
-    font-size: clamp(0.88rem, 4.4vw, 1.15rem);
-  }
-}
-
-@media (max-width: 820px) and (orientation: portrait) {
-  :root {
-    --item-height: 68px;
-  }
-
-  .app {
-    width: min(100% - 14px, 540px);
-    padding: 16px 0 32px;
-  }
-
-  .hero {
-    margin-bottom: 16px;
-  }
-
-  .hero h1 {
-    font-size: clamp(1.8rem, 7.6vw, 2.45rem);
-    line-height: 1.02;
-  }
-
-  .description {
-    width: min(100%, 420px);
-    margin-top: 12px;
-    font-size: 0.9rem;
-    line-height: 1.45;
-  }
-
-  .machine-marquee {
-    width: 100%;
-    margin-bottom: -10px;
-    padding: 14px 14px 22px;
-  }
-
-  .machine-marquee h2 {
-    font-size: clamp(1.45rem, 6.2vw, 2rem);
-  }
-
-  .machine-panel {
-    padding: 26px 10px 12px;
-    border-radius: 24px;
-  }
-
-  .machine-top {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .display-badge,
-  .coin-panel {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .machine-face {
-    padding: 12px 6px 10px;
-    border-radius: 16px;
-  }
-
-  .reel-header,
-  .slot-machine {
-    gap: 4px;
-  }
-
-  .reel-header span {
-    font-size: 0.48rem;
-    letter-spacing: 0.06em;
-  }
-
-  .slot-title {
-    font-size: 0.5rem;
-    letter-spacing: 0.04em;
-  }
-
-  .slot-window {
-    border-width: 4px;
-    border-radius: 12px;
-  }
-
-  .slot-item {
-    padding: 0 3px;
-    font-size: clamp(0.78rem, 3.8vw, 0.98rem);
-  }
-
-  .controls {
-    flex-direction: column;
-  }
-
-  .spin-button,
-  .ghost-button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 430px) and (orientation: portrait) {
-  :root {
-    --item-height: 58px;
-  }
-
-  .app {
-    width: calc(100% - 10px);
-    padding: 12px 0 24px;
-  }
-
-  .hero h1 {
-    font-size: clamp(1.55rem, 7vw, 2rem);
-  }
-
-  .description {
-    font-size: 0.84rem;
-  }
-
-  .machine-marquee {
-    padding: 12px 10px 18px;
-    border-radius: 22px 22px 12px 12px;
-  }
-
-  .bulb {
-    width: 14px;
-    height: 14px;
-  }
-
-  .machine-panel {
-    padding: 22px 8px 10px;
-    border-width: 5px;
-  }
-
-  .machine-panel::before {
-    inset: 6px;
-    border-radius: 14px;
-  }
-
-  .machine-face {
-    padding: 10px 5px 8px;
+  .gacha-dome {
+    width: 90px;
+    height: 90px;
     border-width: 3px;
   }
 
-  .reel-header,
-  .slot-machine {
-    gap: 5px;
+  .gacha-item {
+    font-size: clamp(0.9rem, 4.2vw, 1.2rem);
   }
 
-  .slot-window {
-    border-width: 3px;
-  }
-
-  .slot-item {
-    font-size: clamp(0.7rem, 3.7vw, 0.88rem);
-    line-height: 1.08;
-  }
-
-  .control-deck {
-    padding: 10px;
-  }
-
-  .spin-button,
-  .ghost-button {
-    padding: 13px 14px;
-    font-size: 0.92rem;
-  }
-
-  .result-card h3 {
-    font-size: 1rem;
-  }
-
-  .result-card p:last-child {
-    font-size: 0.82rem;
-  }
-}
-
-
-
-@media (max-width: 820px) {
-  .lever-box {
-    display: block;
-    width: 92px;
-    min-height: 108px;
-    margin: 4px auto 0;
-  }
-
-  .lever-head {
-    top: 0;
-    left: 28px;
-    width: 30px;
-    height: 30px;
-  }
-
-  .lever-shaft {
-    top: 22px;
-    left: 39px;
-    width: 8px;
-    height: 58px;
-    transform: rotate(12deg);
-  }
-
-  .lever-base {
-    bottom: 8px;
-    left: 22px;
-    width: 44px;
-    height: 44px;
-  }
-
-  .lever-box.is-pulled .lever-shaft {
-    transform: rotate(24deg) translateY(8px);
-  }
-
-  .lever-box.is-pulled .lever-head {
-    transform: translate(10px, 14px);
-  }
-}
-
-@media (max-width: 430px) and (orientation: portrait) {
-  .lever-box {
-    width: 82px;
-    min-height: 96px;
-  }
-
-  .lever-head {
-    left: 26px;
+  .gacha-neck {
     width: 26px;
-    height: 26px;
   }
 
-  .lever-shaft {
-    left: 36px;
-    height: 52px;
-  }
-
-  .lever-base {
-    left: 20px;
-    width: 40px;
-    height: 40px;
+  .gacha-body {
+    min-height: 80px;
   }
 }
