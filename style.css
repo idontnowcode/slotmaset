@@ -121,12 +121,20 @@ body::before {
   flex-wrap: wrap;
 }
 
+/* ── Machine column wrapper (button lives here, outside the filter) ── */
+.machine-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 190px;
+}
+
 /* ── Single Gacha Machine ── */
 .gacha-machine {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 190px;
+  width: 100%;
   filter: drop-shadow(0 12px 28px rgba(0,0,0,0.45));
   transition: filter 0.3s ease;
 }
@@ -533,10 +541,14 @@ button:disabled {
     flex-wrap: nowrap;
   }
 
-  .gacha-machine {
-    width: 152px;
+  .machine-col {
     flex: 1 1 0;
     min-width: 0;
+    width: auto;
+  }
+
+  .gacha-machine {
+    width: 100%;
   }
 
   .gacha-dome {
@@ -625,7 +637,7 @@ button:disabled {
     gap: 10px;
   }
 
-  .gacha-machine {
+  .machine-col {
     width: 128px;
   }
 
@@ -677,7 +689,7 @@ button:disabled {
 }
 
 @media (max-width: 400px) {
-  .gacha-machine {
+  .machine-col {
     width: 108px;
   }
 
