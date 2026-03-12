@@ -348,6 +348,7 @@ body::before {
 
 /* ── Tray ── */
 .gacha-tray {
+  position: relative;
   width: 80%;
   height: 18px;
   background: linear-gradient(180deg, #2a2f3a 0%, #1a1e28 100%);
@@ -358,6 +359,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 .tray-hole {
@@ -366,6 +368,59 @@ body::before {
   background: #0d1018;
   border-radius: 4px;
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* ── Gacha Ball ── */
+.gacha-ball {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  left: 50%;
+  top: -2px;
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.75) 0%, var(--mc, #aaa) 45%, var(--mc-deep, #555) 100%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.45), inset 0 1px 3px rgba(255,255,255,0.45);
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes ballPop {
+  0%   { transform: translateX(-50%) translateY(0)    scale(0);    opacity: 0; }
+  12%  { transform: translateX(-50%) translateY(-2px) scale(1.18); opacity: 1; }
+  28%  { transform: translateX(-50%) translateY(14px) scale(1);    opacity: 1; }
+  46%  { transform: translateX(-50%) translateY(8px)  scale(1.04); opacity: 1; }
+  62%  { transform: translateX(-50%) translateY(14px) scale(0.97); opacity: 1; }
+  82%  { transform: translateX(-50%) translateY(14px) scale(0.97); opacity: 0.85; }
+  100% { transform: translateX(-50%) translateY(24px) scale(0.88); opacity: 0; }
+}
+
+/* ── Machine spin button ── */
+.machine-spin-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 9px 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 100%);
+  color: var(--mc, #fff);
+  border: 2px solid var(--mc, rgba(255,255,255,0.3));
+  border-radius: 999px;
+  box-shadow: 0 0 10px var(--mc-glow, rgba(255,255,255,0.15)), inset 0 1px 0 rgba(255,255,255,0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.machine-spin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px var(--mc-glow, rgba(255,255,255,0.25)), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.machine-spin-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* ── Control Deck ── */
@@ -552,11 +607,16 @@ button:disabled {
     flex-direction: column;
   }
 
-  .spin-button,
   .ghost-button {
     width: 100%;
     min-width: 0;
     padding: 14px 18px;
+  }
+
+  .machine-spin-btn {
+    margin-top: 8px;
+    padding: 7px 6px;
+    font-size: 0.75rem;
   }
 }
 
@@ -603,6 +663,17 @@ button:disabled {
   .knob-assy {
     padding-top: 6px;
   }
+
+  .machine-spin-btn {
+    margin-top: 6px;
+    padding: 6px 4px;
+    font-size: 0.7rem;
+  }
+
+  .gacha-ball {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -643,5 +714,16 @@ button:disabled {
   .knob-assy {
     padding-top: 5px;
     padding-bottom: 0;
+  }
+
+  .machine-spin-btn {
+    margin-top: 5px;
+    padding: 5px 4px;
+    font-size: 0.65rem;
+  }
+
+  .gacha-ball {
+    width: 16px;
+    height: 16px;
   }
 }

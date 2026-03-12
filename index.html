@@ -35,7 +35,7 @@
           <div class="machine-badge">개체 1</div>
           <div class="gacha-dome" id="dome1">
             <div class="dome-gloss"></div>
-            <span class="gacha-item" id="gacha1">???</span>
+            <span class="gacha-item" id="gacha1"></span>
           </div>
           <div class="gacha-neck"></div>
           <div class="gacha-body">
@@ -50,7 +50,11 @@
               </div>
             </div>
           </div>
-          <div class="gacha-tray"><div class="tray-hole"></div></div>
+          <div class="gacha-tray">
+            <div class="tray-hole"></div>
+            <div class="gacha-ball"></div>
+          </div>
+          <button class="machine-spin-btn" id="spinBtn1" type="button">뽑기</button>
         </div>
 
         <!-- Machine 2: 개체 2 -->
@@ -58,7 +62,7 @@
           <div class="machine-badge">개체 2</div>
           <div class="gacha-dome" id="dome2">
             <div class="dome-gloss"></div>
-            <span class="gacha-item" id="gacha2">???</span>
+            <span class="gacha-item" id="gacha2"></span>
           </div>
           <div class="gacha-neck"></div>
           <div class="gacha-body">
@@ -73,7 +77,11 @@
               </div>
             </div>
           </div>
-          <div class="gacha-tray"><div class="tray-hole"></div></div>
+          <div class="gacha-tray">
+            <div class="tray-hole"></div>
+            <div class="gacha-ball"></div>
+          </div>
+          <button class="machine-spin-btn" id="spinBtn2" type="button">뽑기</button>
         </div>
 
         <!-- Machine 3: 속성 -->
@@ -81,7 +89,7 @@
           <div class="machine-badge">속성</div>
           <div class="gacha-dome" id="dome3">
             <div class="dome-gloss"></div>
-            <span class="gacha-item" id="gacha3">???</span>
+            <span class="gacha-item" id="gacha3"></span>
           </div>
           <div class="gacha-neck"></div>
           <div class="gacha-body">
@@ -96,21 +104,24 @@
               </div>
             </div>
           </div>
-          <div class="gacha-tray"><div class="tray-hole"></div></div>
+          <div class="gacha-tray">
+            <div class="tray-hole"></div>
+            <div class="gacha-ball"></div>
+          </div>
+          <button class="machine-spin-btn" id="spinBtn3" type="button">뽑기</button>
         </div>
 
       </div>
 
       <div class="control-deck">
         <div class="controls">
-          <button class="spin-button" id="spinButton" type="button">뽑기!</button>
           <button class="ghost-button" id="replayButton" type="button">결과 다시 보기</button>
         </div>
 
         <section class="result-card" aria-live="polite">
           <p class="result-label">RESULT</p>
-          <h3 id="resultHeadline">기계를 돌려 속성을 뽑아보세요.</h3>
-          <p id="resultSentence">예시: 물의 폭포 개구리</p>
+          <h3 id="resultHeadline">각 기계의 뽑기 버튼을 눌러보세요.</h3>
+          <p id="resultSentence">세 기계를 모두 뽑으면 조합 결과가 나타납니다.</p>
         </section>
       </div>
     </section>
