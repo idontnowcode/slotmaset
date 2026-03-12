@@ -158,16 +158,21 @@ function updateCombinedResult() {
   resultHeadline.textContent = `${attr}의 ${obj1} ${obj2}`;
   resultSentence.textContent  = `${attr} 속성을 머금은 ${obj1}와 ${obj2}의 조합입니다. 캐릭터 설정, 몬스터 이름, 세계관 아이디어의 시작점으로 써보세요.`;
   playJackpotSound();
-  statusPill.textContent = "COMPLETE";
 }
 
 function spinMachine(state) {
   if (state.spinning) return;
   state.spinning = true;
+  state.result = null;  // 재뽑기 시 이전 결과 초기화
   state.btnEl.disabled = true;
 
-  // Pick result now (hidden until reveal)
-  const target = state.list[Math.floor(Math.random() * state.list.length)];
+  // Pick result — 개체 기계(index 0,1)는 서로 다른 값 보장
+  let target = state.list[Math.floor(Math.random() * state.list.length)];
+  if (state === machineState[1] && machineState[0].result !== null) {
+    while (target === machineState[0].result && state.list.length > 1) {
+      target = state.list[Math.floor(Math.random() * state.list.length)];
+    }
+  }
 
   // Clear dome
   state.displayEl.textContent = "";
@@ -176,7 +181,7 @@ function spinMachine(state) {
   // Knob animation + sound
   animateCrank(state.machineEl);
   playCrankSound();
-  statusPill.textContent = "SPINNING";
+  updateStatusPill();
 
   // Spin loop sound — stop after ball fades
   const spinLoop = startSpinLoop();
@@ -193,8 +198,20 @@ function spinMachine(state) {
     playItemStopSound();
     state.spinning = false;
     state.btnEl.disabled = false;
+    updateStatusPill();
     updateCombinedResult();
   }, 1850);
+}
+
+function updateStatusPill() {
+  const anySpinning = machineState.some(s => s.spinning);
+  if (anySpinning) {
+    statusPill.textContent = "SPINNING";
+  } else if (machineState.every(s => s.result !== null)) {
+    statusPill.textContent = "COMPLETE";
+  } else {
+    statusPill.textContent = "READY";
+  }
 }
 
 function replayResult() {
