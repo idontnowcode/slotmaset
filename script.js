@@ -1,50 +1,24 @@
-﻿const REPEAT_COUNT = 7;
-
 const objects = [
-  "나무",
-  "돌",
-  "개구리",
-  "폭포",
-  "불꽃",
-  "구름",
-  "수정",
-  "늑대",
-  "시계",
-  "유성",
+  "나무", "돌", "개구리", "폭포", "불꽃",
+  "구름", "수정", "늑대", "시계", "유성",
 ];
 
 const attributes = [
-  "희망",
-  "절망",
-  "물",
-  "불",
-  "독",
-  "빛",
-  "어둠",
-  "바람",
-  "번개",
-  "꿈",
+  "희망", "절망", "물", "불", "독",
+  "빛", "어둠", "바람", "번개", "꿈",
 ];
 
-const slots = [
-  {
-    track: document.getElementById("slot1Track"),
-    list: objects,
-  },
-  {
-    track: document.getElementById("slot2Track"),
-    list: objects,
-  },
-  {
-    track: document.getElementById("slot3Track"),
-    list: attributes,
-  },
-];
-
+const gacha1 = document.getElementById("gacha1");
+const gacha2 = document.getElementById("gacha2");
+const gacha3 = document.getElementById("gacha3");
+const dome1 = document.getElementById("dome1");
+const dome2 = document.getElementById("dome2");
+const dome3 = document.getElementById("dome3");
+const machine1 = document.getElementById("machine1");
+const machine2 = document.getElementById("machine2");
+const machine3 = document.getElementById("machine3");
 const spinButton = document.getElementById("spinButton");
-const surpriseButton = document.getElementById("surpriseButton");
-const leverButton = document.getElementById("leverButton");
-const machinePanel = document.getElementById("machinePanel");
+const replayButton = document.getElementById("replayButton");
 const resultHeadline = document.getElementById("resultHeadline");
 const resultSentence = document.getElementById("resultSentence");
 const statusPill = document.getElementById("statusPill");
@@ -53,240 +27,155 @@ let isSpinning = false;
 let latestResult = null;
 let audioContext = null;
 
-function getItemHeight() {
-  const rootValue = window.getComputedStyle(document.documentElement).getPropertyValue("--item-height").trim();
-  const parsed = Number.parseFloat(rootValue);
-  return Number.isFinite(parsed) ? parsed : 110;
-}
-
-function repeatItems(list) {
-  return Array.from({ length: REPEAT_COUNT }, () => list).flat();
-}
-
-function buildSlot(track, list) {
-  track.innerHTML = "";
-
-  repeatItems(list).forEach((item) => {
-    const cell = document.createElement("div");
-    cell.className = "slot-item";
-    cell.textContent = item;
-    track.appendChild(cell);
-  });
-}
-
-function setTrackPosition(track, visibleIndex) {
-  const itemHeight = getItemHeight();
-  track.style.transition = "none";
-  track.style.transform = `translateY(-${visibleIndex * itemHeight}px)`;
-}
-
-function renderInitialSlots() {
-  slots.forEach((slot, index) => {
-    buildSlot(slot.track, slot.list);
-    const startIndex = index === 2 ? 0 : index + 1;
-    setTrackPosition(slot.track, startIndex);
-  });
-}
-
-function randomIndex(list) {
-  return Math.floor(Math.random() * list.length);
-}
-
-function createNarration(object1, object2, attribute) {
-  return `${attribute}의 ${object1} ${object2}`;
-}
-
-function createDescription(object1, object2, attribute) {
-  return `${attribute} 속성을 머금은 ${object1}와 ${object2}의 조합입니다. 캐릭터 설정, 몬스터 이름, 세계관 아이디어의 시작점으로 써보세요.`;
-}
-
-function updateResult(result) {
-  const { object1, object2, attribute } = result;
-  resultHeadline.textContent = createNarration(object1, object2, attribute);
-  resultSentence.textContent = createDescription(object1, object2, attribute);
-}
-
 function ensureAudioContext() {
   if (!audioContext) {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextClass) {
-      return null;
-    }
+    if (!AudioContextClass) return null;
     audioContext = new AudioContextClass();
   }
-
-  if (audioContext.state === "suspended") {
-    audioContext.resume();
-  }
-
+  if (audioContext.state === "suspended") audioContext.resume();
   return audioContext;
 }
 
 function playTone({ frequency, duration, type = "sine", volume = 0.05, attack = 0.01, release = 0.08, when = 0 }) {
   const ctx = ensureAudioContext();
-  if (!ctx) {
-    return;
-  }
+  if (!ctx) return;
 
   const startTime = ctx.currentTime + when;
-  const oscillator = ctx.createOscillator();
-  const gainNode = ctx.createGain();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
 
-  oscillator.type = type;
-  oscillator.frequency.setValueAtTime(frequency, startTime);
+  osc.type = type;
+  osc.frequency.setValueAtTime(frequency, startTime);
+  gain.gain.setValueAtTime(0.0001, startTime);
+  gain.gain.exponentialRampToValueAtTime(volume, startTime + attack);
+  gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration + release);
 
-  gainNode.gain.setValueAtTime(0.0001, startTime);
-  gainNode.gain.exponentialRampToValueAtTime(volume, startTime + attack);
-  gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration + release);
-
-  oscillator.connect(gainNode);
-  gainNode.connect(ctx.destination);
-  oscillator.start(startTime);
-  oscillator.stop(startTime + duration + release + 0.02);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(startTime);
+  osc.stop(startTime + duration + release + 0.02);
 }
 
-function playLeverSound() {
-  playTone({ frequency: 180, duration: 0.08, type: "triangle", volume: 0.04 });
-  playTone({ frequency: 120, duration: 0.12, type: "square", volume: 0.025, when: 0.04 });
+function playCrankSound() {
+  playTone({ frequency: 220, duration: 0.06, type: "square",   volume: 0.035 });
+  playTone({ frequency: 150, duration: 0.10, type: "triangle", volume: 0.028, when: 0.05 });
+  playTone({ frequency: 280, duration: 0.05, type: "sawtooth", volume: 0.02,  when: 0.10 });
 }
 
-function playReelStopSound(delay = 0) {
-  playTone({ frequency: 760, duration: 0.03, type: "square", volume: 0.032, when: delay });
-  playTone({ frequency: 520, duration: 0.05, type: "triangle", volume: 0.028, when: delay + 0.02 });
+function playItemStopSound(delay = 0) {
+  playTone({ frequency: 880, duration: 0.04, type: "square",   volume: 0.03,  when: delay });
+  playTone({ frequency: 600, duration: 0.06, type: "triangle", volume: 0.025, when: delay + 0.03 });
 }
 
 function playJackpotSound() {
-  playTone({ frequency: 523.25, duration: 0.1, type: "triangle", volume: 0.035, when: 0.00 });
+  playTone({ frequency: 523.25, duration: 0.1,  type: "triangle", volume: 0.035, when: 0.00 });
   playTone({ frequency: 659.25, duration: 0.11, type: "triangle", volume: 0.035, when: 0.10 });
   playTone({ frequency: 783.99, duration: 0.13, type: "triangle", volume: 0.035, when: 0.22 });
 }
 
 function startSpinLoop() {
   const ctx = ensureAudioContext();
-  if (!ctx) {
-    return { stop() {} };
-  }
+  if (!ctx) return { stop() {} };
 
   const bandPass = ctx.createBiquadFilter();
   const loopGain = ctx.createGain();
-  const noiseGain = ctx.createGain();
   const noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 0.18, ctx.sampleRate);
   const channel = noiseBuffer.getChannelData(0);
 
-  for (let i = 0; i < channel.length; i += 1) {
-    channel[i] = (Math.random() * 2 - 1) * 0.35;
-  }
+  for (let i = 0; i < channel.length; i++) channel[i] = (Math.random() * 2 - 1) * 0.3;
 
   bandPass.type = "bandpass";
-  bandPass.frequency.value = 760;
-  bandPass.Q.value = 0.7;
-
-  loopGain.gain.value = 0.0001;
-  loopGain.gain.exponentialRampToValueAtTime(0.03, ctx.currentTime + 0.04);
+  bandPass.frequency.value = 680;
+  bandPass.Q.value = 0.8;
+  loopGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+  loopGain.gain.exponentialRampToValueAtTime(0.025, ctx.currentTime + 0.05);
 
   const noiseSource = ctx.createBufferSource();
   noiseSource.buffer = noiseBuffer;
   noiseSource.loop = true;
 
-  const motorOscillator = ctx.createOscillator();
-  const motorGain = ctx.createGain();
-  motorOscillator.type = "sawtooth";
-  motorOscillator.frequency.setValueAtTime(38, ctx.currentTime);
-  motorGain.gain.setValueAtTime(0.0001, ctx.currentTime);
-  motorGain.gain.exponentialRampToValueAtTime(0.02, ctx.currentTime + 0.06);
-
-  noiseSource.connect(noiseGain);
-  noiseGain.gain.value = 1;
-  noiseGain.connect(bandPass);
+  noiseSource.connect(bandPass);
   bandPass.connect(loopGain);
-  motorOscillator.connect(motorGain);
-  motorGain.connect(loopGain);
   loopGain.connect(ctx.destination);
-
   noiseSource.start();
-  motorOscillator.start();
 
   return {
     stop() {
-      const stopTime = ctx.currentTime;
-      loopGain.gain.cancelScheduledValues(stopTime);
-      loopGain.gain.setValueAtTime(Math.max(loopGain.gain.value, 0.0001), stopTime);
-      loopGain.gain.exponentialRampToValueAtTime(0.0001, stopTime + 0.16);
-      motorGain.gain.cancelScheduledValues(stopTime);
-      motorGain.gain.setValueAtTime(Math.max(motorGain.gain.value, 0.0001), stopTime);
-      motorGain.gain.exponentialRampToValueAtTime(0.0001, stopTime + 0.14);
-      noiseSource.stop(stopTime + 0.18);
-      motorOscillator.stop(stopTime + 0.18);
+      const t = ctx.currentTime;
+      loopGain.gain.cancelScheduledValues(t);
+      loopGain.gain.setValueAtTime(Math.max(loopGain.gain.value, 0.0001), t);
+      loopGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
+      noiseSource.stop(t + 0.2);
     },
   };
 }
 
-function pullLever() {
-  if (!leverButton) {
-    return;
-  }
-
-  leverButton.classList.remove("is-pulled");
-  void leverButton.offsetWidth;
-  leverButton.classList.add("is-pulled");
-  window.setTimeout(() => {
-    leverButton.classList.remove("is-pulled");
-  }, 280);
+function animateCrank(machineEl) {
+  machineEl.classList.remove("is-cranking");
+  void machineEl.offsetWidth;
+  machineEl.classList.add("is-cranking");
+  setTimeout(() => machineEl.classList.remove("is-cranking"), 520);
 }
 
-function animateSlot(slot, targetIndex, duration, stopDelay = 0) {
+function animateGacha(displayEl, domeEl, list, targetItem, totalDuration) {
   return new Promise((resolve) => {
-    const itemHeight = getItemHeight();
-    const baseCycles = 4 + Math.floor(Math.random() * 2);
-    const finalIndex = targetIndex + slot.list.length * baseCycles;
-    const distance = finalIndex * itemHeight;
-    const track = slot.track;
-    const windowEl = track.parentElement;
+    domeEl.classList.remove("is-landed");
+    displayEl.classList.add("is-spinning");
 
-    windowEl.classList.remove("is-winning");
-    void windowEl.offsetWidth;
+    // Build a schedule of increasing intervals (fast → slow)
+    const schedule = [];
+    let elapsed = 0;
+    let interval = 65;
 
-    track.style.transition = "none";
-    track.style.transform = "translateY(0)";
+    while (elapsed < totalDuration - 400) {
+      schedule.push(interval);
+      elapsed += interval;
+      interval = Math.min(interval * 1.072, 380);
+    }
 
-    requestAnimationFrame(() => {
-      track.style.transition = `transform ${duration}ms cubic-bezier(0.12, 0.78, 0.18, 1)`;
-      track.style.transform = `translateY(-${distance}px)`;
-    });
+    let i = 0;
 
-    window.setTimeout(() => {
-      track.style.transition = "none";
-      track.style.transform = `translateY(-${targetIndex * itemHeight}px)`;
-      windowEl.classList.add("is-winning");
-      playReelStopSound(stopDelay);
-      resolve();
-    }, duration + 40);
+    function next() {
+      if (i < schedule.length) {
+        displayEl.textContent = list[Math.floor(Math.random() * list.length)];
+        setTimeout(next, schedule[i++]);
+      } else {
+        displayEl.textContent = targetItem;
+        displayEl.classList.remove("is-spinning");
+        domeEl.classList.add("is-landed");
+        resolve();
+      }
+    }
+
+    next();
   });
 }
 
+function updateResult({ object1, object2, attribute }) {
+  resultHeadline.textContent = `${attribute}의 ${object1} ${object2}`;
+  resultSentence.textContent = `${attribute} 속성을 머금은 ${object1}와 ${object2}의 조합입니다. 캐릭터 설정, 몬스터 이름, 세계관 아이디어의 시작점으로 써보세요.`;
+}
+
 async function spin() {
-  if (isSpinning) {
-    return;
-  }
+  if (isSpinning) return;
 
   isSpinning = true;
   spinButton.disabled = true;
-  surpriseButton.disabled = true;
-  if (leverButton) {
-    leverButton.disabled = true;
-  }
+  replayButton.disabled = true;
 
-  pullLever();
-  playLeverSound();
+  [machine1, machine2, machine3].forEach((m, idx) => {
+    setTimeout(() => animateCrank(m), idx * 80);
+  });
+  playCrankSound();
   const spinLoop = startSpinLoop();
 
   statusPill.textContent = "SPINNING";
-  machinePanel.classList.add("is-spinning");
 
   const result = {
-    object1: objects[randomIndex(objects)],
-    object2: objects[randomIndex(objects)],
-    attribute: attributes[randomIndex(attributes)],
+    object1: objects[Math.floor(Math.random() * objects.length)],
+    object2: objects[Math.floor(Math.random() * objects.length)],
+    attribute: attributes[Math.floor(Math.random() * attributes.length)],
   };
 
   if (result.object1 === result.object2) {
@@ -294,46 +183,28 @@ async function spin() {
   }
 
   latestResult = result;
-  updateResult({ object1: "???", object2: "???", attribute: "..." });
+  resultHeadline.textContent = "뽑는 중...";
+  resultSentence.textContent = "";
 
   await Promise.all([
-    animateSlot(slots[0], objects.indexOf(result.object1), 1700, 0),
-    animateSlot(slots[1], objects.indexOf(result.object2), 2200, 0.03),
-    animateSlot(slots[2], attributes.indexOf(result.attribute), 2800, 0.06),
+    animateGacha(gacha1, dome1, objects,     result.object1,   1700),
+    animateGacha(gacha2, dome2, objects,     result.object2,   2300).then(() => playItemStopSound()),
+    animateGacha(gacha3, dome3, attributes,  result.attribute, 2900).then(() => playItemStopSound(0.02)),
   ]);
 
   spinLoop.stop();
   playJackpotSound();
   updateResult(result);
   statusPill.textContent = "COMPLETE";
-  machinePanel.classList.remove("is-spinning");
   spinButton.disabled = false;
-  surpriseButton.disabled = false;
-  if (leverButton) {
-    leverButton.disabled = false;
-  }
+  replayButton.disabled = false;
   isSpinning = false;
 }
 
 function replayResult() {
-  if (!latestResult || isSpinning) {
-    return;
-  }
-
+  if (!latestResult || isSpinning) return;
   updateResult(latestResult);
 }
 
-renderInitialSlots();
-window.addEventListener("resize", () => {
-  if (!isSpinning) {
-    renderInitialSlots();
-    if (latestResult) {
-      updateResult(latestResult);
-    }
-  }
-});
 spinButton.addEventListener("click", spin);
-surpriseButton.addEventListener("click", replayResult);
-if (leverButton) {
-  leverButton.addEventListener("click", spin);
-}
+replayButton.addEventListener("click", replayResult);
