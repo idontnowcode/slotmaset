@@ -131,12 +131,8 @@ body::before {
   transition: filter 0.3s ease;
 }
 
-.gacha-machine.is-cranking .crank-arm {
-  animation: crankSpin 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
-}
-
-.gacha-machine.is-cranking .crank-grip {
-  animation: crankSpin 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+.gacha-machine.is-cranking .knob-dial {
+  animation: knobSpin 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 
 /* Machine badge label */
@@ -257,11 +253,11 @@ body::before {
     inset 0 -6px 12px rgba(0,0,0,0.3),
     0 4px 12px rgba(0,0,0,0.25);
   overflow: visible;
-  min-height: 120px;
+  min-height: 130px;
 }
 
 .body-inner {
-  padding: 14px 14px 12px;
+  padding: 14px 14px 10px;
 }
 
 .coin-row {
@@ -308,50 +304,45 @@ body::before {
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
 }
 
-/* ── Crank ── */
-.crank-assy {
-  position: absolute;
-  right: -30px;
-  top: 50%;
-  transform: translateY(-50%);
+/* ── Knob ── */
+.knob-assy {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 28px;
+  justify-content: center;
+  padding-top: 12px;
+  padding-bottom: 2px;
 }
 
-.crank-hub {
-  width: 20px;
-  height: 20px;
+.knob-dial {
+  position: relative;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #f0f4ff 0%, #9aa0b0 38%, #4e5461 70%, #2e333d 100%);
-  box-shadow: inset 0 2px 1px rgba(255,255,255,0.4), 0 2px 6px rgba(0,0,0,0.35);
-  z-index: 1;
+  background: radial-gradient(circle at 38% 32%, #d8dce8 0%, #8890a4 38%, #3e4460 72%, #1c2030 100%);
+  border: 4px solid rgba(0,0,0,0.45);
+  box-shadow:
+    inset 0 3px 6px rgba(255,255,255,0.3),
+    inset 0 -4px 8px rgba(0,0,0,0.5),
+    0 5px 16px rgba(0,0,0,0.55),
+    0 2px 4px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 5px;
 }
 
-.crank-arm {
-  width: 8px;
-  height: 38px;
-  background: linear-gradient(90deg, #c8ccd8 0%, #7a8090 45%, #5a6070 100%);
-  border-radius: 4px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
-  transform-origin: top center;
+.knob-mark {
+  width: 5px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--mc, #aabbcc);
+  box-shadow: 0 0 6px var(--mc-glow, rgba(255,255,255,0.5)), 0 1px 2px rgba(0,0,0,0.4);
 }
 
-.crank-grip {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff4e0 0%, var(--mc, #aaa) 45%, var(--mc-deep, #555) 100%);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.4);
-  transform-origin: top center;
-}
-
-@keyframes crankSpin {
+@keyframes knobSpin {
   0%   { transform: rotate(0deg); }
-  30%  { transform: rotate(180deg); }
-  60%  { transform: rotate(320deg); }
-  80%  { transform: rotate(380deg); }
+  30%  { transform: rotate(200deg); }
+  60%  { transform: rotate(330deg); }
+  80%  { transform: rotate(390deg); }
   100% { transform: rotate(360deg); }
 }
 
@@ -483,11 +474,14 @@ button:disabled {
   }
 
   .gacha-arena {
-    gap: 16px;
+    gap: 10px;
+    flex-wrap: nowrap;
   }
 
   .gacha-machine {
     width: 152px;
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .gacha-dome {
@@ -518,7 +512,7 @@ button:disabled {
   }
 
   .body-inner {
-    padding: 10px 10px 8px;
+    padding: 10px 10px 6px;
   }
 
   .coin-slot {
@@ -530,17 +524,19 @@ button:disabled {
     font-size: 0.52rem;
   }
 
-  .crank-assy {
-    right: -24px;
+  .knob-dial {
+    width: 38px;
+    height: 38px;
+    padding-top: 4px;
   }
 
-  .crank-arm {
-    height: 28px;
+  .knob-mark {
+    width: 4px;
+    height: 11px;
   }
 
-  .crank-grip {
-    width: 13px;
-    height: 13px;
+  .knob-assy {
+    padding-top: 8px;
   }
 
   .gacha-tray {
@@ -592,23 +588,20 @@ button:disabled {
     padding: 4px 14px;
   }
 
-  .crank-assy {
-    right: -20px;
+  .knob-dial {
+    width: 32px;
+    height: 32px;
+    border-width: 3px;
+    padding-top: 3px;
   }
 
-  .crank-arm {
-    width: 6px;
-    height: 22px;
+  .knob-mark {
+    width: 4px;
+    height: 9px;
   }
 
-  .crank-hub {
-    width: 16px;
-    height: 16px;
-  }
-
-  .crank-grip {
-    width: 12px;
-    height: 12px;
+  .knob-assy {
+    padding-top: 6px;
   }
 }
 
@@ -632,6 +625,23 @@ button:disabled {
   }
 
   .gacha-body {
-    min-height: 80px;
+    min-height: 90px;
+  }
+
+  .knob-dial {
+    width: 28px;
+    height: 28px;
+    border-width: 3px;
+    padding-top: 3px;
+  }
+
+  .knob-mark {
+    width: 3px;
+    height: 8px;
+  }
+
+  .knob-assy {
+    padding-top: 5px;
+    padding-bottom: 0;
   }
 }

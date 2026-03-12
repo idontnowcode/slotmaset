@@ -115,7 +115,7 @@ function animateCrank(machineEl) {
   machineEl.classList.remove("is-cranking");
   void machineEl.offsetWidth;
   machineEl.classList.add("is-cranking");
-  setTimeout(() => machineEl.classList.remove("is-cranking"), 520);
+  setTimeout(() => machineEl.classList.remove("is-cranking"), 620);
 }
 
 function animateGacha(displayEl, domeEl, list, targetItem, totalDuration) {
