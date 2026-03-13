@@ -33,108 +33,115 @@
         <!-- ═══ Slot Machine Cabinet ═══ -->
         <div class="slot-machine-cabinet">
 
-          <!-- Neon accent strips on sides -->
-          <div class="neon-strip neon-strip-l"></div>
-          <div class="neon-strip neon-strip-r"></div>
+          <!-- Wide cyan side glow panels (inside border, at edges) -->
+          <div class="neon-panel neon-panel-l"></div>
+          <div class="neon-panel neon-panel-r"></div>
 
-          <!-- Gold top bar with decorative lights -->
-          <div class="slot-top-bar">
-            <div class="top-bar-lights">
-              <span class="t-light"></span><span class="t-light"></span>
-              <span class="t-light"></span><span class="t-light"></span>
-              <span class="t-light"></span><span class="t-light"></span>
-              <span class="t-light"></span><span class="t-light"></span>
-              <span class="t-light"></span>
-            </div>
+          <!-- ── Reel panel ── -->
+          <div class="reel-panel">
+            <div class="gacha-arena" aria-label="속성을 뽑는 뽑기 기계 세 대">
+
+              <!-- Machine 1: 개체 1 -->
+              <div class="machine-col" id="machine1"
+                   style="--mc:#4eb8d4;--mc-deep:#1a6e8a;--mc-glow:rgba(78,184,212,0.6)">
+                <div class="reel-label">개체 1</div>
+                <div class="gacha-dome" id="dome1">
+                  <div class="reel-gloss"></div>
+                  <span class="gacha-item" id="gacha1"></span>
+                </div>
+                <div class="knob-section">
+                  <div class="knob-assy">
+                    <div class="knob-base"></div>
+                    <div class="knob-dial"><div class="knob-mark"></div></div>
+                  </div>
+                </div>
+                <div class="gacha-tray">
+                  <div class="tray-hole"></div>
+                  <div class="gacha-ball"></div>
+                </div>
+                <button class="machine-spin-btn" id="spinBtn1" type="button">뽑기</button>
+              </div>
+
+              <div class="reel-divider"></div>
+
+              <!-- Machine 2: 개체 2 -->
+              <div class="machine-col" id="machine2"
+                   style="--mc:#3db88a;--mc-deep:#145c42;--mc-glow:rgba(61,184,138,0.6)">
+                <div class="reel-label">개체 2</div>
+                <div class="gacha-dome" id="dome2">
+                  <div class="reel-gloss"></div>
+                  <span class="gacha-item" id="gacha2"></span>
+                </div>
+                <div class="knob-section">
+                  <div class="knob-assy">
+                    <div class="knob-base"></div>
+                    <div class="knob-dial"><div class="knob-mark"></div></div>
+                  </div>
+                </div>
+                <div class="gacha-tray">
+                  <div class="tray-hole"></div>
+                  <div class="gacha-ball"></div>
+                </div>
+                <button class="machine-spin-btn" id="spinBtn2" type="button">뽑기</button>
+              </div>
+
+              <div class="reel-divider"></div>
+
+              <!-- Machine 3: 속성 -->
+              <div class="machine-col" id="machine3"
+                   style="--mc:#d4a73a;--mc-deep:#7a520e;--mc-glow:rgba(212,167,58,0.6)">
+                <div class="reel-label">속성</div>
+                <div class="gacha-dome" id="dome3">
+                  <div class="reel-gloss"></div>
+                  <span class="gacha-item" id="gacha3"></span>
+                </div>
+                <div class="knob-section">
+                  <div class="knob-assy">
+                    <div class="knob-base"></div>
+                    <div class="knob-dial"><div class="knob-mark"></div></div>
+                  </div>
+                </div>
+                <div class="gacha-tray">
+                  <div class="tray-hole"></div>
+                  <div class="gacha-ball"></div>
+                </div>
+                <button class="machine-spin-btn" id="spinBtn3" type="button">뽑기</button>
+              </div>
+
+            </div><!-- /gacha-arena -->
+          </div><!-- /reel-panel -->
+
+          <!-- ── Rivet bar (below reels) ── -->
+          <div class="rivet-bar">
+            <span class="rivet"></span>
+            <span class="rivet"></span>
+            <span class="rivet"></span>
+            <span class="rivet"></span>
+            <span class="rivet"></span>
+            <span class="rivet"></span>
+            <span class="rivet"></span>
           </div>
 
-          <!-- Reel panel (three reels + gold dividers) -->
-          <div class="gacha-arena" aria-label="속성을 뽑는 뽑기 기계 세 대">
-
-            <!-- Machine 1: 개체 1 -->
-            <div class="machine-col" id="machine1"
-                 style="--mc:#4eb8d4;--mc-deep:#1a6e8a;--mc-glow:rgba(78,184,212,0.55)">
-              <div class="reel-label">개체 1</div>
-              <div class="gacha-dome" id="dome1">
-                <div class="reel-gloss"></div>
-                <div class="reel-gloss reel-gloss-2"></div>
-                <span class="gacha-item" id="gacha1"></span>
-              </div>
-              <div class="knob-section">
-                <div class="knob-assy">
-                  <div class="knob-base"></div>
-                  <div class="knob-dial"><div class="knob-mark"></div></div>
-                </div>
-              </div>
-              <div class="gacha-tray">
-                <div class="tray-hole"></div>
-                <div class="gacha-ball"></div>
-              </div>
-              <button class="machine-spin-btn" id="spinBtn1" type="button">뽑기</button>
-            </div>
-
-            <div class="reel-divider"></div>
-
-            <!-- Machine 2: 개체 2 -->
-            <div class="machine-col" id="machine2"
-                 style="--mc:#3db88a;--mc-deep:#145c42;--mc-glow:rgba(61,184,138,0.55)">
-              <div class="reel-label">개체 2</div>
-              <div class="gacha-dome" id="dome2">
-                <div class="reel-gloss"></div>
-                <div class="reel-gloss reel-gloss-2"></div>
-                <span class="gacha-item" id="gacha2"></span>
-              </div>
-              <div class="knob-section">
-                <div class="knob-assy">
-                  <div class="knob-base"></div>
-                  <div class="knob-dial"><div class="knob-mark"></div></div>
-                </div>
-              </div>
-              <div class="gacha-tray">
-                <div class="tray-hole"></div>
-                <div class="gacha-ball"></div>
-              </div>
-              <button class="machine-spin-btn" id="spinBtn2" type="button">뽑기</button>
-            </div>
-
-            <div class="reel-divider"></div>
-
-            <!-- Machine 3: 속성 -->
-            <div class="machine-col" id="machine3"
-                 style="--mc:#d4a73a;--mc-deep:#7a520e;--mc-glow:rgba(212,167,58,0.55)">
-              <div class="reel-label">속성</div>
-              <div class="gacha-dome" id="dome3">
-                <div class="reel-gloss"></div>
-                <div class="reel-gloss reel-gloss-2"></div>
-                <span class="gacha-item" id="gacha3"></span>
-              </div>
-              <div class="knob-section">
-                <div class="knob-assy">
-                  <div class="knob-base"></div>
-                  <div class="knob-dial"><div class="knob-mark"></div></div>
-                </div>
-              </div>
-              <div class="gacha-tray">
-                <div class="tray-hole"></div>
-                <div class="gacha-ball"></div>
-              </div>
-              <button class="machine-spin-btn" id="spinBtn3" type="button">뽑기</button>
-            </div>
-
-          </div><!-- /gacha-arena -->
-
-          <!-- Lower display cavity (matches image reference) -->
+          <!-- ── Lower display cavity ── -->
           <div class="slot-lower-section">
             <div class="lower-inner"></div>
           </div>
 
-          <!-- Gold bottom bar with lights -->
-          <div class="slot-bottom-bar">
-            <div class="bottom-bar-lights">
-              <span class="b-light"></span><span class="b-light"></span>
-              <span class="b-light"></span><span class="b-light"></span>
-              <span class="b-light"></span><span class="b-light"></span>
-              <span class="b-light"></span>
+          <!-- ── Bottom trim arch ── -->
+          <div class="slot-bottom-trim">
+            <span class="b-dot"></span>
+            <span class="b-dot"></span>
+            <span class="b-dot"></span>
+          </div>
+
+          <!-- ── Machine base / feet ── -->
+          <div class="slot-base">
+            <div class="slot-foot slot-foot-l">
+              <span class="foot-light"></span>
+            </div>
+            <div class="base-ball-slot"></div>
+            <div class="slot-foot slot-foot-r">
+              <span class="foot-light"></span>
             </div>
           </div>
 
@@ -143,15 +150,15 @@
         <!-- Shared wooden ball receiver -->
         <div class="wood-tray">
           <div class="tray-slot"
-               style="--mc:#4eb8d4;--mc-deep:#1a6e8a;--mc-glow:rgba(78,184,212,0.55)">
+               style="--mc:#4eb8d4;--mc-deep:#1a6e8a;--mc-glow:rgba(78,184,212,0.6)">
             <div class="ball-in-catcher" id="catcher1"></div>
           </div>
           <div class="tray-slot"
-               style="--mc:#3db88a;--mc-deep:#145c42;--mc-glow:rgba(61,184,138,0.55)">
+               style="--mc:#3db88a;--mc-deep:#145c42;--mc-glow:rgba(61,184,138,0.6)">
             <div class="ball-in-catcher" id="catcher2"></div>
           </div>
           <div class="tray-slot"
-               style="--mc:#d4a73a;--mc-deep:#7a520e;--mc-glow:rgba(212,167,58,0.55)">
+               style="--mc:#d4a73a;--mc-deep:#7a520e;--mc-glow:rgba(212,167,58,0.6)">
             <div class="ball-in-catcher" id="catcher3"></div>
           </div>
         </div>
@@ -164,7 +171,6 @@
           <button class="open-button" id="openButton" type="button" disabled>Open</button>
           <button class="ghost-button" id="replayButton" type="button">결과 다시 보기</button>
         </div>
-
         <section class="result-card" aria-live="polite">
           <p class="result-label">RESULT</p>
           <h3 id="resultHeadline">각 기계의 뽑기 버튼을 눌러보세요.</h3>
