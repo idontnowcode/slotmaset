@@ -179,9 +179,15 @@ function spinMachine(state) {
     }
   }
 
-  // 돔 비우기
-  state.displayEl.textContent = "";
+  // 슬롯 릴 회전 시작
   state.domeEl.classList.remove("is-landed");
+  state.domeEl.classList.add("is-spinning");
+  state.displayEl.textContent = state.list[0];
+
+  // 빠른 텍스트 사이클링 (슬롯 릴 효과)
+  const spinInterval = setInterval(() => {
+    state.displayEl.textContent = state.list[Math.floor(Math.random() * state.list.length)];
+  }, 65);
 
   // 노브 회전 + 사운드
   animateCrank(state.machineEl);
@@ -194,7 +200,24 @@ function spinMachine(state) {
   // 구슬 등장 (노브 이후 350ms)
   setTimeout(() => animateBall(state.machineEl), 350);
 
-  // 구슬 받침 안착 (결과는 저장하되 돔에는 미표시)
+  // 슬로우다운 단계 — 릴이 결과에 안착
+  setTimeout(() => {
+    clearInterval(spinInterval);
+    let count = 0;
+    const slowInterval = setInterval(() => {
+      state.displayEl.textContent = state.list[Math.floor(Math.random() * state.list.length)];
+      count++;
+      if (count >= 5) {
+        clearInterval(slowInterval);
+        state.domeEl.classList.remove("is-spinning");
+        state.displayEl.textContent = target;
+        state.displayEl.classList.add("is-landing");
+        setTimeout(() => state.displayEl.classList.remove("is-landing"), 350);
+      }
+    }, 160);
+  }, 1260);
+
+  // 구슬 안착 + 상태 확정
   setTimeout(() => {
     state.result = target;
     state.catcherBallEl.classList.add("is-landed");
