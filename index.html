@@ -28,130 +28,130 @@
         </div>
       </div>
 
-      <!-- Table scene: wood surface holding all three machines -->
       <div class="table-scene">
 
-        <div class="gacha-arena" aria-label="속성을 뽑는 뽑기 기계 세 대">
+        <!-- ═══ Slot Machine Cabinet ═══ -->
+        <div class="slot-machine-cabinet">
 
-          <!-- Machine 1: 개체 1 -->
-          <div class="machine-col" style="--mc:#4eb8d4;--mc-deep:#1a6e8a;--mc-glow:rgba(78,184,212,0.5)">
-            <div class="gacha-machine" id="machine1">
-              <div class="machine-badge">개체 1</div>
+          <!-- Neon accent strips on sides -->
+          <div class="neon-strip neon-strip-l"></div>
+          <div class="neon-strip neon-strip-r"></div>
+
+          <!-- Gold top bar with decorative lights -->
+          <div class="slot-top-bar">
+            <div class="top-bar-lights">
+              <span class="t-light"></span><span class="t-light"></span>
+              <span class="t-light"></span><span class="t-light"></span>
+              <span class="t-light"></span><span class="t-light"></span>
+              <span class="t-light"></span><span class="t-light"></span>
+              <span class="t-light"></span>
+            </div>
+          </div>
+
+          <!-- Reel panel (three reels + gold dividers) -->
+          <div class="gacha-arena" aria-label="속성을 뽑는 뽑기 기계 세 대">
+
+            <!-- Machine 1: 개체 1 -->
+            <div class="machine-col" id="machine1"
+                 style="--mc:#4eb8d4;--mc-deep:#1a6e8a;--mc-glow:rgba(78,184,212,0.55)">
+              <div class="reel-label">개체 1</div>
               <div class="gacha-dome" id="dome1">
-                <div class="dome-gloss"></div>
-                <div class="dome-gloss dome-gloss-2"></div>
+                <div class="reel-gloss"></div>
+                <div class="reel-gloss reel-gloss-2"></div>
                 <span class="gacha-item" id="gacha1"></span>
               </div>
-              <div class="dome-ring"></div>
-              <div class="gacha-neck"></div>
-              <div class="gacha-body">
-                <div class="body-screw body-screw-tl"></div>
-                <div class="body-screw body-screw-tr"></div>
-                <div class="body-screw body-screw-bl"></div>
-                <div class="body-screw body-screw-br"></div>
-                <div class="body-inner">
-                  <div class="coin-row">
-                    <div class="coin-slot"><div class="coin-slit"></div></div>
-                    <p class="body-sublabel">OBJECT I</p>
-                  </div>
-                  <div class="decor-strip"></div>
-                  <div class="knob-assy">
-                    <div class="knob-base"></div>
-                    <div class="knob-dial"><div class="knob-mark"></div></div>
-                  </div>
+              <div class="knob-section">
+                <div class="knob-assy">
+                  <div class="knob-base"></div>
+                  <div class="knob-dial"><div class="knob-mark"></div></div>
                 </div>
               </div>
               <div class="gacha-tray">
                 <div class="tray-hole"></div>
                 <div class="gacha-ball"></div>
               </div>
+              <button class="machine-spin-btn" id="spinBtn1" type="button">뽑기</button>
             </div>
-            <button class="machine-spin-btn" id="spinBtn1" type="button">뽑기</button>
-          </div>
 
-          <!-- Machine 2: 개체 2 -->
-          <div class="machine-col" style="--mc:#3db88a;--mc-deep:#145c42;--mc-glow:rgba(61,184,138,0.5)">
-            <div class="gacha-machine" id="machine2">
-              <div class="machine-badge">개체 2</div>
+            <div class="reel-divider"></div>
+
+            <!-- Machine 2: 개체 2 -->
+            <div class="machine-col" id="machine2"
+                 style="--mc:#3db88a;--mc-deep:#145c42;--mc-glow:rgba(61,184,138,0.55)">
+              <div class="reel-label">개체 2</div>
               <div class="gacha-dome" id="dome2">
-                <div class="dome-gloss"></div>
-                <div class="dome-gloss dome-gloss-2"></div>
+                <div class="reel-gloss"></div>
+                <div class="reel-gloss reel-gloss-2"></div>
                 <span class="gacha-item" id="gacha2"></span>
               </div>
-              <div class="dome-ring"></div>
-              <div class="gacha-neck"></div>
-              <div class="gacha-body">
-                <div class="body-screw body-screw-tl"></div>
-                <div class="body-screw body-screw-tr"></div>
-                <div class="body-screw body-screw-bl"></div>
-                <div class="body-screw body-screw-br"></div>
-                <div class="body-inner">
-                  <div class="coin-row">
-                    <div class="coin-slot"><div class="coin-slit"></div></div>
-                    <p class="body-sublabel">OBJECT II</p>
-                  </div>
-                  <div class="decor-strip"></div>
-                  <div class="knob-assy">
-                    <div class="knob-base"></div>
-                    <div class="knob-dial"><div class="knob-mark"></div></div>
-                  </div>
+              <div class="knob-section">
+                <div class="knob-assy">
+                  <div class="knob-base"></div>
+                  <div class="knob-dial"><div class="knob-mark"></div></div>
                 </div>
               </div>
               <div class="gacha-tray">
                 <div class="tray-hole"></div>
                 <div class="gacha-ball"></div>
               </div>
+              <button class="machine-spin-btn" id="spinBtn2" type="button">뽑기</button>
             </div>
-            <button class="machine-spin-btn" id="spinBtn2" type="button">뽑기</button>
-          </div>
 
-          <!-- Machine 3: 속성 -->
-          <div class="machine-col" style="--mc:#d4a73a;--mc-deep:#7a520e;--mc-glow:rgba(212,167,58,0.5)">
-            <div class="gacha-machine" id="machine3">
-              <div class="machine-badge">속성</div>
+            <div class="reel-divider"></div>
+
+            <!-- Machine 3: 속성 -->
+            <div class="machine-col" id="machine3"
+                 style="--mc:#d4a73a;--mc-deep:#7a520e;--mc-glow:rgba(212,167,58,0.55)">
+              <div class="reel-label">속성</div>
               <div class="gacha-dome" id="dome3">
-                <div class="dome-gloss"></div>
-                <div class="dome-gloss dome-gloss-2"></div>
+                <div class="reel-gloss"></div>
+                <div class="reel-gloss reel-gloss-2"></div>
                 <span class="gacha-item" id="gacha3"></span>
               </div>
-              <div class="dome-ring"></div>
-              <div class="gacha-neck"></div>
-              <div class="gacha-body">
-                <div class="body-screw body-screw-tl"></div>
-                <div class="body-screw body-screw-tr"></div>
-                <div class="body-screw body-screw-bl"></div>
-                <div class="body-screw body-screw-br"></div>
-                <div class="body-inner">
-                  <div class="coin-row">
-                    <div class="coin-slot"><div class="coin-slit"></div></div>
-                    <p class="body-sublabel">ATTRIBUTE</p>
-                  </div>
-                  <div class="decor-strip"></div>
-                  <div class="knob-assy">
-                    <div class="knob-base"></div>
-                    <div class="knob-dial"><div class="knob-mark"></div></div>
-                  </div>
+              <div class="knob-section">
+                <div class="knob-assy">
+                  <div class="knob-base"></div>
+                  <div class="knob-dial"><div class="knob-mark"></div></div>
                 </div>
               </div>
               <div class="gacha-tray">
                 <div class="tray-hole"></div>
                 <div class="gacha-ball"></div>
               </div>
+              <button class="machine-spin-btn" id="spinBtn3" type="button">뽑기</button>
             </div>
-            <button class="machine-spin-btn" id="spinBtn3" type="button">뽑기</button>
+
+          </div><!-- /gacha-arena -->
+
+          <!-- Lower display cavity (matches image reference) -->
+          <div class="slot-lower-section">
+            <div class="lower-inner"></div>
           </div>
 
-        </div><!-- /gacha-arena -->
+          <!-- Gold bottom bar with lights -->
+          <div class="slot-bottom-bar">
+            <div class="bottom-bar-lights">
+              <span class="b-light"></span><span class="b-light"></span>
+              <span class="b-light"></span><span class="b-light"></span>
+              <span class="b-light"></span><span class="b-light"></span>
+              <span class="b-light"></span>
+            </div>
+          </div>
 
-        <!-- Single shared wooden tray spanning all machines -->
+        </div><!-- /slot-machine-cabinet -->
+
+        <!-- Shared wooden ball receiver -->
         <div class="wood-tray">
-          <div class="tray-slot" style="--mc:#4eb8d4;--mc-deep:#1a6e8a;--mc-glow:rgba(78,184,212,0.5)">
+          <div class="tray-slot"
+               style="--mc:#4eb8d4;--mc-deep:#1a6e8a;--mc-glow:rgba(78,184,212,0.55)">
             <div class="ball-in-catcher" id="catcher1"></div>
           </div>
-          <div class="tray-slot" style="--mc:#3db88a;--mc-deep:#145c42;--mc-glow:rgba(61,184,138,0.5)">
+          <div class="tray-slot"
+               style="--mc:#3db88a;--mc-deep:#145c42;--mc-glow:rgba(61,184,138,0.55)">
             <div class="ball-in-catcher" id="catcher2"></div>
           </div>
-          <div class="tray-slot" style="--mc:#d4a73a;--mc-deep:#7a520e;--mc-glow:rgba(212,167,58,0.5)">
+          <div class="tray-slot"
+               style="--mc:#d4a73a;--mc-deep:#7a520e;--mc-glow:rgba(212,167,58,0.55)">
             <div class="ball-in-catcher" id="catcher3"></div>
           </div>
         </div>
